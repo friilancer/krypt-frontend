@@ -17,18 +17,36 @@ const SignUp = () => {
 					<div className= "place-self-start w-full sm:grid sm:gap-x-2 sm:grid-cols-2">
 						<div className="my-1">
 							<label className="text-blue-900 font-medium">First Name</label>
-							<input className="bg-blue-50 rounded-md border my-1 w-full px-1 py-1" type="text"/>
+							<input 
+								className="bg-blue-50 rounded-md border my-1 w-full px-1 py-1" 
+								type="text"
+								placeholder="John"
+							/>
 						</div>
 						<div className="my-1">
 							<label className="text-blue-900 font-medium my-0.5">Last Name</label>
-							<input className="bg-blue-50 my-1 rounded-md border w-full px-1 py-1" type="text"/>
+							<input 
+								className="bg-blue-50 my-1 rounded-md border w-full px-1 py-1" 
+								type="text"
+								placeholder="Doe"
+							/>
 						</div>
 					</div>
 					<label className="text-blue-900 font-medium place-self-start">Email</label>
-					<input className="my-1 rounded-md bg-blue-50 border w-full px-1 py-1" type="email"/>
+					<input 
+						className="my-1 rounded-md bg-blue-50 border w-full px-1 py-1" 
+						type="email"
+						placeholder="john@xyz.com"
+					/>
 					<label className="text-blue-900 font-medium place-self-start">Password</label>
-					<input className="my-1 rounded-md bg-blue-50 border w-full px-1 py-1" type="password"/>
-					<button className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center">Sign up</button>
+					<input 
+						className="my-1 rounded-md bg-blue-50 border w-full px-1 py-1" 
+						type="password"
+						placeholder="Password"
+					/>
+					<button className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center">
+						Sign up
+					</button>
 				</form>
 			</div>
 		</>
