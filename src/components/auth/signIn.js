@@ -12,7 +12,7 @@ const SignIn = () => {
 				<div className="relative bottom-2 h-5 rounded-full bg-white"></div>
 				<form className="mx-3 grid place-items-center">
 					<h1 className="text-3xl place-self-start mb-4 text-blue-900 font-semibold">
-						Sign In
+						Log In
 					</h1>	
 					<label className="text-blue-900 font-medium place-self-start">Email</label>
 					<input 
@@ -27,12 +27,12 @@ const SignIn = () => {
 						placeholder="Password"
 					/>
 					<button className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center">
-						Sign in
+						Log in
 					</button>
 				</form>
 				<div className="mx-3 grid place-items-center">
 					<button className="mt-4 w-3/4 hover:bg-red-700 hover:text-white sm:w-3/5 border border-red-800 text-red-700 rounded-md py-1.5 grid place-self-center">
-						<i className="fa fa-google font-bold py-1">&nbsp; <strong>Sign in with google</strong></i>
+						<i className="fa fa-google font-bold py-1">&nbsp; <strong>Log in with Google</strong></i>
 					</button>
 				</div>
 			</div>

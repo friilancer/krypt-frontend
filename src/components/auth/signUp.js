@@ -48,6 +48,11 @@ const SignUp = () => {
 						Sign up
 					</button>
 				</form>
+				<div className="mx-3 grid place-items-center">
+					<button className="mt-4 w-3/4 hover:bg-red-700 hover:text-white sm:w-3/5 border border-red-800 text-red-700 rounded-md py-1.5 grid place-self-center">
+						<i className="fa fa-google font-bold py-1">&nbsp; <strong>Sign up with Google</strong></i>
+					</button>
+				</div>
 			</div>
 		</>
 	)
