@@ -21,10 +21,15 @@ const Home = () => {
 
 	return(
 		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-5 md:py-10 2xl:container`}>
-				<nav className="text-white p-3 sm:p-5 border-b-2 border-white">
-					<Link to='/' className="inline-block px-2 sm:px-4 font-bold text-lg">Rooms</Link>
-					<Link to='/' className="inline-block px-2 sm:px-4 font-bold text-lg">Gallery</Link>
-					<Link to='/' className="inline-block px-2 sm:px-4 font-bold text-lg">Contact Us</Link>
+				<nav className="text-white p-3 sm:p-5 border-b-2 grid grid-cols-2-auto border-white">
+					<div className="flex gap-x-3	">
+						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Rooms</Link>
+						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Gallery</Link>
+					</div>
+					<div className="flex gap-x-3">
+						<Link to='/' className="py-1 px-2 sm:px-4 font-bold text-lg border border-2 border-white"> Sign In </Link>
+						<Link to='/' className="py-1 px-2 sm:px-4 font-bold text-lg border border-2 border-white"> Sign Up </Link>
+					</div>
 				</nav>
 				<div className="grid lg:grid-cols-2">
 					{
@@ -49,7 +54,7 @@ const Home = () => {
 								Lorem ipsium Lorem ipsium  
 							</p>
 							</div>
-							<Link className="place-self-end py-3 px-6 font-bold text-sm bg-transparent border border-white border-2">
+							<Link to='/booking' className="place-self-end py-3 px-6 font-bold text-sm bg-transparent border border-white border-2">
 								Book A Room
 							</Link>
 						</div>
