@@ -18,7 +18,7 @@ const reducerFunction = (state=initialState, action) => {
 		case EDIT_USER:{
 			return{
 				...state,
-				user:actionpayload
+				user:action.payload
 			}
 		}
 		case LOGOUT_USER:{

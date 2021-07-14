@@ -20,15 +20,15 @@ const Home = () => {
 	const size = useWindowSize();
 
 	return(
-		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-5 md:py-10 2xl:container`}>
-				<nav className="text-white p-3 sm:p-5 border-b-2 grid grid-cols-2-auto border-white">
-					<div className="flex gap-x-3	">
+		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 2xl:container`}>
+				<nav className="text-white px-3 sm:px-5 py-2 border-b-2 grid grid-cols-2-auto border-white">
+					<div className="flex gap-x-3 items-center">
 						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Rooms</Link>
 						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Gallery</Link>
 					</div>
-					<div className="flex gap-x-3">
-						<Link to='/' className="py-1 px-2 sm:px-4 font-bold text-lg border border-2 border-white"> Sign In </Link>
-						<Link to='/' className="py-1 px-2 sm:px-4 font-bold text-lg border border-2 border-white"> Sign Up </Link>
+					<div className="flex gap-x-3 items-center">
+						<Link to='/' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
+						<Link to='/' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign Up </Link>
 					</div>
 				</nav>
 				<div className="grid lg:grid-cols-2">

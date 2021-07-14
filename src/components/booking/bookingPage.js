@@ -1,5 +1,10 @@
-import React, {useState, Fragment} from 'react';
-import scene from '../../img/scene.png'
+import React, {useState, useEffect, Fragment} from 'react';
+import scene from '../../img/scene.png';
+import { useDispatch, useSelector } from 'react-redux'
+import dayjs from 'dayjs';
+import dayOfYear from 'dayjs/plugin/dayOfYear'
+
+dayjs.extend(dayOfYear);
 
 const Booking = () => {
 	const [bookings, setBookings] = useState({
@@ -8,6 +13,102 @@ const Booking = () => {
 		single: 0
 	})
 
+	const [guest, setGuest] = useState(1);
+
+	const [dateRange, setDateRange] = useState({
+		from: '',
+		to: '',
+		maxFrom: '',
+		maxTo: ''
+	})
+
+	const selectDoubleDeluxe = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				doubleDeluxe: prevbookings.doubleDeluxe === 2 ? 2 : prevbookings.doubleDeluxe + 1
+			}
+		})
+	}
+
+	const deselectDoubleDeluxe = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				doubleDeluxe: prevbookings.doubleDeluxe === 0 ? 0 : prevbookings.doubleDeluxe - 1
+			}
+		})
+	}
+
+	const selectDeluxe = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				deluxe: prevbookings.deluxe === 3 ? 3 : prevbookings.deluxe + 1
+			}
+		})
+	}
+
+	const deselectDeluxe = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				deluxe: prevbookings.deluxe === 0 ? 0 : prevbookings.deluxe - 1
+			}
+		})
+	}
+
+	const selectSingle = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				single: prevbookings.single === 2 ? 2 : prevbookings.single + 1
+			}
+		})
+	}
+
+	const deselectSingle = (e) => {
+		e.preventDefault();
+		setBookings(prevbookings => {
+			return	{
+				...prevbookings,
+				single: prevbookings.single === 0 ? 0 : prevbookings.single - 1
+			}
+		})
+	}
+
+	const decrementGuests = (e) => {
+		e.preventDefault()
+		setGuest(prevGuest => prevGuest === 1 ? 1 : prevGuest - 1)
+	}
+
+	const incrementGuests = (e) => {
+		e.preventDefault()
+		setGuest(prevGuest => prevGuest === 2 ? 2 : prevGuest + 1)		
+	}
+
+	useEffect(() => {
+		const defineDateRanges = () => {
+			
+			let from = dayjs().format('YYYY-MM-DD');
+			let to = dayjs().add(1, 'd').format('YYYY-MM-DD')
+			let maxFrom = dayjs().add(3, 'M').format('YYYY-MM-DD')
+			let maxTo = dayjs().add(1, 'd').add(3, 'M').format('YYYY-MM-DD')
+			setDateRange({
+				from,
+				to,
+				maxFrom,
+				maxTo
+			})
+		}
+
+		defineDateRanges()
+	},[])
 	return (
 		<>
 			<div className="max-w-md sm:relative sm:top-2 sm:border-b-2 sm:border-gray-300 sm:rounded-xl sm:pb-10 mx-auto">
@@ -27,11 +128,19 @@ const Booking = () => {
 							{
 								typeof bookings.doubleDeluxe === 'number' && bookings.doubleDeluxe !== 0 &&
 								<div className="flex">
-									<button aria-label="deselect-double-deluxe" className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"></button>
+									<button 
+										aria-label="deselect-double-deluxe" 
+										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
+										onClick={deselectDoubleDeluxe}
+									></button>
 									<div className="mx-8 text-lg font-medium">{bookings.doubleDeluxe}</div>
 								</div>
 							}		
-							<button aria-label="select-double-deluxe" className="fa fa-plus border border-blue-900 text-blue-900 p-1 rounded-md"></button>
+							<button 
+								aria-label="select-double-deluxe" 
+								className="fa fa-plus border border-blue-900 text-blue-900 p-1 rounded-md"
+								onClick={selectDoubleDeluxe}
+							></button>
 						</div>
 					</div>
 					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
@@ -40,11 +149,19 @@ const Booking = () => {
 							{
 								typeof bookings.deluxe === 'number' && bookings.deluxe !== 0 &&
 								<div className="flex">
-									<button aria-label="deselect-deluxe" className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"></button>
+									<button 
+										aria-label="deselect-deluxe" 
+										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
+										onClick={deselectDeluxe}
+									></button>
 									<div className="mx-8 text-lg font-medium">{bookings.deluxe}</div>
 								</div>
 							}		
-							<button aria-label="select-deluxe" className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"></button>
+							<button 
+								aria-label="select-deluxe" 
+								className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"
+								onClick={selectDeluxe}
+							></button>
 						</div>
 					</div>
 					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
@@ -53,11 +170,19 @@ const Booking = () => {
 							{
 								typeof bookings.single === 'number' && bookings.single !== 0 &&
 								<div className="flex">
-									<button aria-label="deselect-single" className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"></button>
+									<button 
+										aria-label="deselect-single" 
+										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
+										onClick={deselectSingle}
+									></button>
 									<div className="mx-8 text-lg font-medium">{bookings.single}</div>
 								</div>
 							}		
-							<button aria-label="select-single" className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"></button>
+							<button 
+								aria-label="select-single" 
+								className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"
+								onClick={selectSingle}
+							></button>
 						</div>
 					</div>
 					<div className= "place-self-start w-full sm:grid sm:gap-x-3 sm:grid-cols-2">
@@ -66,6 +191,11 @@ const Booking = () => {
 							<input 
 								className="bg-blue-50 rounded-md border my-1 w-full p-2" 
 								type="date"
+								id='checkIn'
+								name='checkIn'
+								defaultValue={dateRange.from}
+								min={dateRange.from}
+								max={dateRange.maxFrom}
 							/>
 						</div>
 						<div className="my-1">
@@ -73,6 +203,11 @@ const Booking = () => {
 							<input 
 								className="bg-blue-50 my-1 rounded-md border w-full p-2" 
 								type="date"
+								id='checkOut'
+								name='checkOut'
+								defaultValue={dateRange.to}
+								min={dateRange.to}
+								max={dateRange.maxTo}
 							/>
 						</div>
 					</div>
@@ -80,9 +215,17 @@ const Booking = () => {
 						<div className="my-1">
 							<div className="font-medium text-blue-900">No. of Guests</div>
 							<div className="grid grid-cols-3 bg-blue-50 rounded-md p-2 items-center w-full">						
-								<button aria-label="deselect-deluxe" className="fa justify-self-start fa-minus border border-blue-900 rounded-md p-1 text-blue-900"></button>
-								<div className="mx-2 text-lg font-medium justify-self-center">1</div>
-								<button aria-label="select-deluxe" className="fa fa-plus p-1 border border-blue-900 rounded-md text-blue-900 justify-self-end"></button>
+								<button 
+									aria-label="increment-guests" 
+									className="fa justify-self-start fa-minus border border-blue-900 rounded-md p-1 text-blue-900"
+									onClick={decrementGuests}
+								></button>
+								<div className="mx-2 text-lg font-medium justify-self-center">{guest}</div>
+								<button 
+									aria-label="decrement-guests" 
+									className="fa fa-plus p-1 border border-blue-900 rounded-md text-blue-900 justify-self-end"
+									onClick={incrementGuests}
+								></button>
 							</div>
 						</div>
 					</div>
