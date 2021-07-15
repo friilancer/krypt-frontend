@@ -22,6 +22,16 @@ const Booking = () => {
 		maxTo: ''
 	})
 
+	const [errorStatus, setErrorStatus] = useState({
+		err: false,
+		errorMessage: ''
+	})
+
+	const [successStatus, setSuccessStatus] = useState({
+		success: false,
+		successMessage: ''
+	})
+
 	const selectDoubleDeluxe = (e) => {
 		e.preventDefault();
 		setBookings(prevbookings => {
@@ -92,6 +102,34 @@ const Booking = () => {
 		setGuest(prevGuest => prevGuest === 2 ? 2 : prevGuest + 1)		
 	}
 
+	const validateBooking = () => {
+		let doubleDeluxeStatus = bookings.doubleDeluxe > 0 ? 'booked' : false;
+		let deluxeStatus = bookings.deluxe > 0 ? 'booked' : false;
+		let singleStatus = bookings.single > 0 ? 'booked' : false; 
+
+		if(doubleDeluxeStatus || deluxeStatus || singleStatus){
+			return true
+		}else{
+			return false
+		}
+	}
+	const submitBooking = (e) => {
+		e.preventDefault();
+		let bookingStatus = validateBooking();
+		if(!bookingStatus){
+			return	setErrorStatus({
+				err: true,
+				errorMessage: 'Please select one or multiple room type(s)'
+			})
+		}
+
+		return	setSuccessStatus({
+			success: true,
+			successMessage: 'Room is being booked'
+		})
+
+	}
+
 	useEffect(() => {
 		const defineDateRanges = () => {
 			
@@ -106,7 +144,6 @@ const Booking = () => {
 				maxTo
 			})
 		}
-
 		defineDateRanges()
 	},[])
 	return (
@@ -121,6 +158,8 @@ const Booking = () => {
 					<h1 className="text-lg place-self-start mb-4 text-blue-900 font-bold">
 						I want to book...
 					</h1>
+					{errorStatus.err && <h3>{errorStatus.errorMessage}</h3>}
+					{successStatus.success && <h3>{successStatus.successMessage}</h3>}
 					<h4 className="place-self-start text-blue-900 font-medium">Room Type</h4>
 					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
 						<div className="font-normal">Double Deluxe</div>
@@ -229,7 +268,12 @@ const Booking = () => {
 							</div>
 						</div>
 					</div>
-					<button className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center">
+					<button
+						type="submit"
+						onClick={submitBooking}
+						aria-label="submit-booking"
+						className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center"
+					>
 						Book
 					</button>
 				</form>
