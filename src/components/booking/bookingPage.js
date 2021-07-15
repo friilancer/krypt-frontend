@@ -102,6 +102,16 @@ const Booking = () => {
 		setGuest(prevGuest => prevGuest === 2 ? 2 : prevGuest + 1)		
 	}
 
+	const resetError = () => setErrorStatus({
+		err: false,
+		errorMessage: ''
+	})
+
+	const resetSuccess = () => setSuccessStatus({
+		success: false,
+		successMessage: ''
+	})
+
 	const validateBooking = () => {
 		let doubleDeluxeStatus = bookings.doubleDeluxe > 0 ? 'booked' : false;
 		let deluxeStatus = bookings.deluxe > 0 ? 'booked' : false;
@@ -117,19 +127,19 @@ const Booking = () => {
 		e.preventDefault();
 		let bookingStatus = validateBooking();
 		if(!bookingStatus){
+			resetSuccess();
 			return	setErrorStatus({
 				err: true,
 				errorMessage: 'Please select one or multiple room type(s)'
 			})
 		}
-
+		resetError();
 		return	setSuccessStatus({
 			success: true,
 			successMessage: 'Room is being booked'
 		})
 
 	}
-
 	useEffect(() => {
 		const defineDateRanges = () => {
 			
@@ -158,8 +168,19 @@ const Booking = () => {
 					<h1 className="text-lg place-self-start mb-4 text-blue-900 font-bold">
 						I want to book...
 					</h1>
-					{errorStatus.err && <h3>{errorStatus.errorMessage}</h3>}
-					{successStatus.success && <h3>{successStatus.successMessage}</h3>}
+					{
+						errorStatus.err && 
+						<div className="flex w-full px-1 text-sm items-center justify-between bg-red-100 text-red-700 font-semibold">
+							<h3>{errorStatus.errorMessage}</h3>
+							<i onClick={resetError} className="fa fa-times cursor-pointer"></i>
+						</div>
+					}
+					{
+						successStatus.success && 
+						<div className="flex w-full px-1 text-sm items-center justify-between bg-green-100 text-green-700 font-semibold">
+							<h3>{successStatus.successMessage}</h3>
+						</div>
+					}
 					<h4 className="place-self-start text-blue-900 font-medium">Room Type</h4>
 					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
 						<div className="font-normal">Double Deluxe</div>

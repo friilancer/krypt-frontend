@@ -27,8 +27,8 @@ const Home = () => {
 						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Gallery</Link>
 					</div>
 					<div className="flex gap-x-3 items-center">
-						<Link to='/' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
-						<Link to='/' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign Up </Link>
+						<Link to='/signin' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
+						<Link to='/signup' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign Up </Link>
 					</div>
 				</nav>
 				<div className="grid lg:grid-cols-2">
