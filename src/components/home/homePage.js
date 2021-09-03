@@ -20,11 +20,11 @@ const Home = () => {
 	const size = useWindowSize();
 
 	return(
-		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 2xl:container`}>
+		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 3xl:container 3xl:mx-auto`}>
 				<nav className="text-white px-3 sm:px-5 py-2 border-b-2 grid grid-cols-2-auto border-white">
 					<div className="flex gap-x-3 items-center">
-						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Rooms</Link>
-						<Link to='/' className="px-2 sm:px-4 font-bold text-lg">Gallery</Link>
+						<Link to='/' className="px-1.5 sm:px-4 font-bold sm:text-lg">Rooms</Link>
+						<Link to='/' className="px-1.5 sm:px-4 font-bold sm:text-lg">Gallery</Link>
 					</div>
 					<div className="flex gap-x-3 items-center">
 						<Link to='/signin' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
