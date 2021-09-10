@@ -1,23 +1,44 @@
 
 import {useState, Fragment} from 'react';
-import scene from '../../img/scene.png'
+import scene from '../../img/scene.png';
+import axios from 'axios';
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router';
 
 const SignUp = () => {
 	const [inputOptions, setInputOptions] = useState({
 		firstName: '',
 		lastName:'',
+		phoneNumber:'',
 		signUpEmail:'',
 		signUpPassword:''
 	});
+
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const onChangeHandler = (e) => setInputOptions({
 		...inputOptions,
 		[e.target.name] : e.target.value
 	})
 
-	const submitHandler = (e) => {
+	const submitHandler = async(e) => {
 		e.preventDefault();
-		console.log('Submitted')
+		try{
+			let {data} =  await axios.post('/api/guest/register', {
+				firstName: inputOptions.firstName,
+				lastName: inputOptions.lastName,
+				phoneNumber: inputOptions.phoneNumber,
+				email : inputOptions.signUpEmail,
+				password: inputOptions.signUpPassword
+			})
+
+			let {token, user} = data;
+			dispatch({type:'LOGIN_USER', payload:{token, user}});
+			return history.push('/')
+		}catch(e){
+			return console.error(e)
+		}	
 	}
 
 	return (
@@ -58,6 +79,16 @@ const SignUp = () => {
 							/>
 						</div>
 					</div>
+					<label htmlFor="phoneNumber" className="text-blue-900 font-medium place-self-start">Phone Number</label>
+					<input
+						id="phoneNumber"
+						name="phoneNumber"
+						className="my-1 rounded-md bg-blue-50 border w-full px-1 py-1" 
+						type="number"
+						placeholder="080xx"
+						value={inputOptions.phoneNumber}
+						onChange={onChangeHandler}
+					/>
 					<label htmlFor="signUpEmail" className="text-blue-900 font-medium place-self-start">Email</label>
 					<input
 						id="signUpEmail"

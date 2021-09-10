@@ -1,6 +1,9 @@
 
 import {useState, Fragment} from 'react';
-import scene from '../../img/scene.png'
+import scene from '../../img/scene.png';
+import axios from 'axios';
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router';
 
 const SignIn = () => {
 	const [inputOptions, setInputOptions] = useState({
@@ -8,14 +11,27 @@ const SignIn = () => {
 		signInPassword:''
 	});
 
+	const dispatch = useDispatch();
+	const history = useHistory();
+	
 	const onChangeHandler = (e) => setInputOptions({
 		...inputOptions,
 		[e.target.name] : e.target.value
 	})
 
-	const submitHandler = (e) => {
+	const submitHandler = async(e) => {
 		e.preventDefault();
-		console.log('Submitted')
+		try{
+			let {data} = await axios.post('/api/guest/login', {
+				email : inputOptions.signInEmail,
+				password: inputOptions.signInPassword
+			})
+			let {token, user} = data;
+			dispatch({type:'LOGIN_USER', payload:{token, user}});
+			return history.push('/')
+		}catch(e){
+			return console.error(e);
+		}
 	}
 
 	return (
