@@ -3,7 +3,7 @@ import {useState, Fragment} from 'react';
 import scene from '../../img/scene.png';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 const SignIn = () => {
 	const [inputOptions, setInputOptions] = useState({
@@ -13,6 +13,7 @@ const SignIn = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const location = useLocation();
 	
 	const onChangeHandler = (e) => setInputOptions({
 		...inputOptions,
@@ -28,7 +29,7 @@ const SignIn = () => {
 			})
 			let {token, user} = data;
 			dispatch({type:'LOGIN_USER', payload:{token, user}});
-			return history.push('/')
+			return location.state.from ? history.push(location.state.from) : history.push('/');
 		}catch(e){
 			return console.error(e);
 		}

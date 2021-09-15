@@ -1,10 +1,50 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import scene from '../../img/scene.png';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import dayjs from 'dayjs';
-import dayOfYear from 'dayjs/plugin/dayOfYear'
+import dayOfYear from 'dayjs/plugin/dayOfYear';
+import { PaystackButton } from 'react-paystack';
 
 dayjs.extend(dayOfYear);
+
+const PaywithPaystack = () => {	
+	let {name,id} = useSelector((state) => state.auth.user);
+
+	let config = {
+		reference: (new Date()).getTime().toString(),
+		email: "aniediabasi.etukudo@email.com",
+		amount: 2000,
+		metadata:{
+			id,
+			name
+		},
+		publicKey: "pk_test_f6bfd988dcd72193ceddeb2ae4f6aaf500d269bc"
+	}
+
+	const onPaymentSuccess = (reference) => {
+		return console.log(reference)
+	}
+
+	const onPaymentClose = () => {
+		return console.log('failed')
+	}
+	
+	let componentProps = {
+		...config,
+		text: 'Pay via Paystack',
+		onSuccess: (reference) => onPaymentSuccess(reference),
+		onClose: onPaymentClose
+
+	} 
+	return (
+		<div className="grid justify-items-center">
+			<PaystackButton 
+				className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center"	
+				{...componentProps}
+			/> 
+		</div>
+	)
+}
 
 const Booking = () => {
 	const [bookings, setBookings] = useState({
@@ -289,15 +329,8 @@ const Booking = () => {
 							</div>
 						</div>
 					</div>
-					<button
-						type="submit"
-						onClick={submitBooking}
-						aria-label="submit-booking"
-						className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center"
-					>
-						Book
-					</button>
 				</form>
+				<PaywithPaystack />
 			</div>
 		</>
 	)
