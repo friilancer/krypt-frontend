@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import { PaystackButton } from 'react-paystack';
+import axios from 'axios';
 
 dayjs.extend(dayOfYear);
 
@@ -11,7 +12,7 @@ const PaywithPaystack = () => {
 	let {name,id} = useSelector((state) => state.auth.user);
 
 	let config = {
-		reference: (new Date()).getTime().toString(),
+		reference: dayjs().toString(),
 		email: "aniediabasi.etukudo@email.com",
 		amount: 2000,
 		metadata:{
@@ -20,7 +21,7 @@ const PaywithPaystack = () => {
 		},
 		publicKey: "pk_test_f6bfd988dcd72193ceddeb2ae4f6aaf500d269bc"
 	}
-
+	
 	const onPaymentSuccess = (reference) => {
 		return console.log(reference)
 	}
@@ -52,6 +53,8 @@ const Booking = () => {
 		deluxe: 0,
 		single: 0
 	})
+
+	const {token} = useSelector(state => state.auth)
 
 	const [guest, setGuest] = useState(1);
 
@@ -196,6 +199,35 @@ const Booking = () => {
 		}
 		defineDateRanges()
 	},[])
+
+	useEffect(() => {
+
+		const getBookedRooms = (bookings) => {
+			let arr = Object.entries(bookings).filter(([key, value]) => value > 0);
+
+			return Object.fromEntries(arr);
+			
+		}
+		const fetchPrice = async() => {
+			let bookedRooms = getBookedRooms(bookings);
+			const {data} = await axios({
+				url:'api/guest/booking/validation',
+				method: 'post',
+				headers: {
+					'auth_token':token
+				},
+				data:{
+					rooms: bookedRooms,
+					from:dateRange.from,
+					to: dateRange.to,
+					guestNumber: guest
+				}
+			})
+			console.log(data)
+		}
+
+		fetchPrice()
+	},[bookings, dateRange.from, dateRange.to])
 	return (
 		<>
 			<div className="max-w-md sm:relative sm:top-2 sm:border-b-2 sm:border-gray-300 sm:rounded-xl sm:pb-10 mx-auto">

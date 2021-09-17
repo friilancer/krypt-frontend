@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import sneakPeek from '../../img/6.jpg';
 
 const useWindowSize = () => {
@@ -18,6 +19,7 @@ const useWindowSize = () => {
 const Home = () => {
 
 	const size = useWindowSize();
+	const auth  = useSelector(state => state.auth);
 
 	return(
 		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 3xl:container 3xl:mx-auto`}>
@@ -26,10 +28,18 @@ const Home = () => {
 						<Link to='/' className="px-1.5 sm:px-4 font-bold sm:text-lg">Rooms</Link>
 						<Link to='/' className="px-1.5 sm:px-4 font-bold sm:text-lg">Gallery</Link>
 					</div>
-					<div className="flex gap-x-3 items-center">
-						<Link to='/signin' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
-						<Link to='/signup' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign Up </Link>
-					</div>
+					{
+						auth.token ? 
+							<Link to="/" className="flex items-center gap-x-2 font-semibold">
+								<p className="">{`Hey, ${auth.user.lastName}`}</p>
+								<i className="fa fa-user"></i>
+							</Link>
+						:
+							<div className="flex gap-x-3 items-center">
+								<Link to='/signin' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign In </Link>
+								<Link to='/signup' className="py-1 px-2 sm:py-3 sm:px-6 font-bold text-sm bg-transparent border border-white border-2"> Sign Up </Link>
+							</div>
+					}
 				</nav>
 				<div className="grid lg:grid-cols-2">
 					{

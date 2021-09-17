@@ -29,7 +29,7 @@ const SignIn = () => {
 			})
 			let {token, user} = data;
 			dispatch({type:'LOGIN_USER', payload:{token, user}});
-			return location.state.from ? history.push(location.state.from) : history.push('/');
+			return !location.state ? history.push('/') : location.state.from ? history.push(location.state.from) : history.push('/');
 		}catch(e){
 			return console.error(e);
 		}
