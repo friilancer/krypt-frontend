@@ -2,13 +2,15 @@ import Home from './components/home/homePage';
 import SignUp from './components/auth/signUp';
 import SignIn from './components/auth/signIn';
 import Booking from './components/booking/bookingPage'
+import {useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { ProtectedRoute } from './controllers/protectedRoute/protectedRoute';
 import './App.css';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import store from './redux/store';
 
 function App() {
+
   return (
     <Provider store={store}>
       <Router>

@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import sneakPeek from '../../img/6.jpg';
+import {verifyUser} from '../../redux/actions/authActions';
 
 const useWindowSize = () => {
   const [size, setSize] = useState(0);
@@ -20,6 +21,16 @@ const Home = () => {
 
 	const size = useWindowSize();
 	const auth  = useSelector(state => state.auth);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const fetchUserCredentials = () =>{ 
+			if(!auth.user){
+				dispatch(verifyUser())
+			}
+		}
+		fetchUserCredentials()
+	}, [])
 
 	return(
 		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 3xl:container 3xl:mx-auto`}>
