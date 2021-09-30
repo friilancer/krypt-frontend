@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {verifyUser} from './redux/actions/authActions';
+import store from './redux/store';
+
+
+store.dispatch(verifyUser())
 
 ReactDOM.render(
   <React.StrictMode>

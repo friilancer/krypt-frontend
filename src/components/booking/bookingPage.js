@@ -8,17 +8,13 @@ import axios from 'axios';
 
 dayjs.extend(dayOfYear);
 
-const PaywithPaystack = () => {	
-	let {name,id} = useSelector((state) => state.auth.user);
+const PaywithPaystack = ({price}) => {	
+	let user = useSelector((state) => state.auth.user);
 
 	let config = {
-		reference: dayjs().toString(),
 		email: "aniediabasi.etukudo@email.com",
-		amount: 2000,
-		metadata:{
-			id,
-			name
-		},
+		amount: price,
+		metadata:user,
 		publicKey: "pk_test_f6bfd988dcd72193ceddeb2ae4f6aaf500d269bc"
 	}
 	
@@ -40,7 +36,7 @@ const PaywithPaystack = () => {
 	return (
 		<div className="grid justify-items-center">
 			<PaystackButton 
-				className="mt-8 w-3/4 hover:bg-blue-900 hover:text-white sm:w-3/5 font-bold border border-blue-900 text-blue-900 rounded-md py-1.5 grid place-self-center"	
+				className={`${price > 0 ? 'border-blue-900' : 'border-gray-500 '} ${price > 0 ? 'text-blue-900' : 'text-gray-600'} ${price > 0 && 'hover:bg-blue-900'} ${price > 0 && 'hover:text-white'} mt-8 w-3/4 sm:w-3/5 font-bold border rounded-md py-1.5 grid place-self-center`}	
 				{...componentProps}
 			/> 
 		</div>
@@ -57,6 +53,7 @@ const Booking = () => {
 	const {token} = useSelector(state => state.auth)
 
 	const [guest, setGuest] = useState(1);
+	const [maxGuest, setMaxGuest] = useState(2);
 
 	const [dateRange, setDateRange] = useState({
 		from: '',
@@ -69,6 +66,8 @@ const Booking = () => {
 		err: false,
 		errorMessage: ''
 	})
+
+	const [price, setPrice] = useState(0);
 
 	const [successStatus, setSuccessStatus] = useState({
 		success: false,
@@ -142,7 +141,7 @@ const Booking = () => {
 
 	const incrementGuests = (e) => {
 		e.preventDefault()
-		setGuest(prevGuest => prevGuest === 2 ? 2 : prevGuest + 1)		
+		setGuest(prevGuest => prevGuest >= maxGuest ? maxGuest : prevGuest + 1)		
 	}
 
 	const resetError = () => setErrorStatus({
@@ -155,20 +154,9 @@ const Booking = () => {
 		successMessage: ''
 	})
 
-	const validateBooking = () => {
-		let doubleDeluxeStatus = bookings.doubleDeluxe > 0 ? 'booked' : false;
-		let deluxeStatus = bookings.deluxe > 0 ? 'booked' : false;
-		let singleStatus = bookings.single > 0 ? 'booked' : false; 
 
-		if(doubleDeluxeStatus || deluxeStatus || singleStatus){
-			return true
-		}else{
-			return false
-		}
-	}
-	const submitBooking = (e) => {
+	/*const submitBooking = (e) => {
 		e.preventDefault();
-		let bookingStatus = validateBooking();
 		if(!bookingStatus){
 			resetSuccess();
 			return	setErrorStatus({
@@ -182,7 +170,8 @@ const Booking = () => {
 			successMessage: 'Room is being booked'
 		})
 
-	}
+	}*/
+
 	useEffect(() => {
 		const defineDateRanges = () => {
 			
@@ -201,29 +190,48 @@ const Booking = () => {
 	},[])
 
 	useEffect(() => {
-
 		const getBookedRooms = (bookings) => {
 			let arr = Object.entries(bookings).filter(([key, value]) => value > 0);
-
-			return Object.fromEntries(arr);
+			if(arr.length > 0) {
+				let maxValue = arr.flat().filter(i => typeof i === 'number').reduce((prev, curr) => prev + curr) * 2;
+				guest > maxValue && setGuest(maxValue)
+				setMaxGuest(maxValue)
+			}
+			return Object.fromEntries(arr); 
 			
 		}
 		const fetchPrice = async() => {
-			let bookedRooms = getBookedRooms(bookings);
-			const {data} = await axios({
-				url:'api/guest/booking/validation',
-				method: 'post',
-				headers: {
-					'auth_token':token
-				},
-				data:{
-					rooms: bookedRooms,
-					from:dateRange.from,
-					to: dateRange.to,
-					guestNumber: guest
+			let bookedRooms =  getBookedRooms(bookings);
+			try{
+				if(Object.keys(bookedRooms).length === 0){
+					setMaxGuest(2)
+					setGuest(1)
+					return  setPrice(0);
 				}
-			})
-			console.log(data)
+				const {data} = await axios({
+								url:'/api/guest/booking/validation',
+								method:'post',
+								data:{
+									rooms: bookedRooms,
+									from:dateRange.from,
+									to: dateRange.to,
+									guestNumber: guest
+								},
+								headers: {
+									auth_token: token
+								}
+				})
+				guest > maxGuest && setGuest(maxGuest)
+				setPrice(data.price)
+			}catch(e){
+				resetSuccess(0)
+				setPrice(0)
+				e.response.data.errorMessage === 'One of the selected rooms is unavailable'  && 
+				setErrorStatus({
+					err: true,
+					errorMessage: 'One of the selected room(s) is unavailable'
+				})
+			}
 		}
 
 		fetchPrice()
@@ -362,7 +370,13 @@ const Booking = () => {
 						</div>
 					</div>
 				</form>
-				<PaywithPaystack />
+				{
+						price > 0 && 
+						<div className="flex w-full px-1 text-lg items-center justify-end font-bold">
+							<h3 className="text-right px-3">{`Total Price: ${Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(Math.floor(price/100))}`}</h3>
+						</div>
+					}
+				<PaywithPaystack price={price}/>
 			</div>
 		</>
 	)

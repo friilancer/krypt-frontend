@@ -21,16 +21,6 @@ const Home = () => {
 
 	const size = useWindowSize();
 	const auth  = useSelector(state => state.auth);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const fetchUserCredentials = () =>{ 
-			if(!auth.user){
-				dispatch(verifyUser())
-			}
-		}
-		fetchUserCredentials()
-	}, [])
 
 	return(
 		<div className={`${size > 921 ? 'home-lg' : 'home'} h-screen grid grid-rows-auto-2 items-center py-3 md:py-8 3xl:container 3xl:mx-auto`}>

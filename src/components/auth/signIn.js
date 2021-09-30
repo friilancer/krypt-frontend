@@ -1,8 +1,8 @@
 
-import {useState, Fragment} from 'react';
+import {useState, Fragment, useEffect} from 'react';
 import scene from '../../img/scene.png';
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
 
 const SignIn = () => {
@@ -10,6 +10,8 @@ const SignIn = () => {
 		signInEmail:'',
 		signInPassword:''
 	});
+
+	const auth =  useSelector(state => state.auth)
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -19,6 +21,16 @@ const SignIn = () => {
 		...inputOptions,
 		[e.target.name] : e.target.value
 	})
+
+	useEffect(() => {
+		const verifyLogin = () => {
+			if(auth.token){
+				!location.state ? history.push('/') : location.state.from ? history.push(location.state.from) : history.push('/')
+			}
+		}
+		
+		verifyLogin()
+	},[auth])
 
 	const submitHandler = async(e) => {
 		e.preventDefault();
