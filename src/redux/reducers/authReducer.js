@@ -1,6 +1,7 @@
 import {GET_USER, LOGIN_USER, EDIT_USER, LOGOUT_USER} from '../actions/types';
+import axios from 'axios'
 
-const initialState = {};
+const initialState ={};
 
 const reducerFunction = (state=initialState, action) => {
 	switch(action.type){

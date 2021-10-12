@@ -4,6 +4,7 @@ import scene from '../../img/scene.png';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
+import GoogleSignIn from './googleSignIn/button';
 
 const SignIn = () => {
 	const [inputOptions, setInputOptions] = useState({
@@ -11,11 +12,16 @@ const SignIn = () => {
 		signInPassword:''
 	});
 
-	const auth =  useSelector(state => state.auth)
+	const [loginError, setLoginError] = useState(false)
 
+	const auth =  useSelector(state => state.auth)
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
+
+	const redirect = () => {
+		!location.state ? history.push('/') : location.state.from ? history.push(location.state.from) : history.push('/')
+	}
 	
 	const onChangeHandler = (e) => setInputOptions({
 		...inputOptions,
@@ -25,10 +31,9 @@ const SignIn = () => {
 	useEffect(() => {
 		const verifyLogin = () => {
 			if(auth.token){
-				!location.state ? history.push('/') : location.state.from ? history.push(location.state.from) : history.push('/')
+				redirect()
 			}
-		}
-		
+		}		
 		verifyLogin()
 	},[auth])
 
@@ -40,10 +45,11 @@ const SignIn = () => {
 				password: inputOptions.signInPassword
 			})
 			let {token, user} = data;
+			setLoginError(false)
 			dispatch({type:'LOGIN_USER', payload:{token, user}});
 			return !location.state ? history.push('/') : location.state.from ? history.push(location.state.from) : history.push('/');
 		}catch(e){
-			return console.error(e);
+			return setLoginError(true)
 		}
 	}
 
@@ -59,6 +65,7 @@ const SignIn = () => {
 					<h1 className="text-3xl place-self-start mb-4 text-blue-900 font-semibold">
 						Log In
 					</h1>	
+					{loginError && <h3 className="text-sm text-red-500 font-medium place-self-start">Invalid login credentials</h3>}
 					<label htmlFor="signInEmail" className="text-blue-900 font-medium place-self-start">Email</label>
 					<input
 						id="signInEmail"
@@ -88,9 +95,7 @@ const SignIn = () => {
 					</button>
 				</form>
 				<div className="mx-3 grid place-items-center">
-					<button className="mt-4 w-3/4 hover:bg-red-700 hover:text-white sm:w-3/5 border border-red-800 text-red-700 rounded-md py-1.5 grid place-self-center">
-						<i className="fa fa-google font-bold py-1">&nbsp; <strong>Sign in with Google</strong></i>
-					</button>
+					<GoogleSignIn loginError={loginError} setLoginError={setLoginError} redirect={redirect}/>
 				</div>
 			</div>
 		</>

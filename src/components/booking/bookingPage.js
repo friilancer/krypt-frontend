@@ -8,22 +8,23 @@ import axios from 'axios';
 
 dayjs.extend(dayOfYear);
 
-const PaywithPaystack = ({price}) => {	
+const PaywithPaystack = ({price, submitBooking}) => {	
 	let user = useSelector((state) => state.auth.user);
 
 	let config = {
-		email: "aniediabasi.etukudo@email.com",
+		email: user.email,
 		amount: price,
 		metadata:user,
 		publicKey: "pk_test_f6bfd988dcd72193ceddeb2ae4f6aaf500d269bc"
 	}
 	
 	const onPaymentSuccess = (reference) => {
-		return console.log(reference)
+		let {trxref, transaction} = reference;
+		submitBooking({trxref, transaction, price})
 	}
 
 	const onPaymentClose = () => {
-		return console.log('failed')
+		return ;
 	}
 	
 	let componentProps = {
@@ -155,22 +156,42 @@ const Booking = () => {
 	})
 
 
-	/*const submitBooking = (e) => {
-		e.preventDefault();
-		if(!bookingStatus){
-			resetSuccess();
-			return	setErrorStatus({
+	const resetBooking = () => {
+		resetError()
+		resetSuccess()
+	}
+
+	const submitBooking = async({trxref, transaction, price}) => {
+		let arr = Object.entries(bookings).filter(([key, value]) => value > 0);
+
+		let bookedRooms = Object.fromEntries(arr);
+
+		try{
+			const {data} = await axios({
+				url:'/api/guest/booking/',
+				method:'post',
+				data:{
+					rooms: bookedRooms,
+					from:dateRange.from,
+					to: dateRange.to,
+					guestNumber: guest,
+					reference:trxref,
+					transaction,
+					amount:price
+				},
+				headers: {
+					auth_token: token
+				}
+			})
+			console.log(data)
+		}catch(e){
+			setErrorStatus({
 				err: true,
-				errorMessage: 'Please select one or multiple room type(s)'
+				errorMessage: 'Payment could not be made for booking'
 			})
 		}
-		resetError();
-		return	setSuccessStatus({
-			success: true,
-			successMessage: 'Room is being booked'
-		})
 
-	}*/
+	}
 
 	useEffect(() => {
 		const defineDateRanges = () => {
@@ -376,7 +397,7 @@ const Booking = () => {
 							<h3 className="text-right px-3">{`Total Price: ${Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(Math.floor(price/100))}`}</h3>
 						</div>
 					}
-				<PaywithPaystack price={price}/>
+				<PaywithPaystack submitBooking={submitBooking} price={price}/>
 			</div>
 		</>
 	)
