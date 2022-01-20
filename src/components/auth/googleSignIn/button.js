@@ -1,5 +1,6 @@
-import {useEffect, useState, Fragment} from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import {useEffect, useState, useRef} from 'react';
+import googleIcon from '../../../img/btn_google_light_normal_ios.svg';
+import { useDispatch } from 'react-redux';
 import axios from 'axios'
 
 const loadGoogleScript = () => {
@@ -24,12 +25,12 @@ const loadGoogleScript = () => {
 }
 
 const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
-    const [gapi, setGapi] = useState();
-    const [googleAuth, setGoogleAuth] = useState();
+    const [_, setGapi] = useState();
     const dispatch = useDispatch();
+    const googleAuthButton = useRef(null)
 
     const onFailure = () => {
-        console.log('Failure')
+        setLoginError(true)
     }
 
     const verifyUser = async(id_token) => {
@@ -52,18 +53,6 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
         verifyUser(token);
     }
 
-    const renderSigninButton = (_gapi) => { // (Ref. 6)
-        _gapi.signin2.render('google-signin', {
-          'scope': 'profile email',
-          'width': 240,
-          'height': 50,
-          'longtitle': true,
-          'theme': 'dark',
-          'onsuccess': onSignIn,
-          'onfailure': onFailure 
-        });
-    }
-
     useEffect(() => {
     
         // Window.gapi is available at this point
@@ -75,10 +64,11 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
           _gapi.load('auth2', () => { // (Ref. 3)
             (async () => { 
               const _googleAuth = await _gapi.auth2.init({ // (Ref. 4)
-               client_id: `220763992748-o1ilh0kbsgoqo0p0d5acg46i5vu19u0k.apps.googleusercontent.com`
+               client_id: `220763992748-o1ilh0kbsgoqo0p0d5acg46i5vu19u0k.apps.googleusercontent.com`,
+               cookiepolicy: 'single_host_origin',
+               'scope': 'profile email',
               });
-              setGoogleAuth(_googleAuth); // (Ref. 5)
-              renderSigninButton(_gapi); // (Ref. 6)
+              _googleAuth.attachClickHandler(googleAuthButton.current, {}, onSignIn, onFailure)
             })();
           });
         }
@@ -88,9 +78,16 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
         
     }, []);
 
+
     return (
         <>
-          <div id="google-signin"></div>
+          <div 
+            className="flex items-center gap-x-5 mt-8 w-3/4 sm:w-3/5 cursor-pointer font-semibold border border-b-gray-400 text-gray-500 rounded-md" 
+            ref={googleAuthButton}
+          >
+            <img src={googleIcon}/>
+            <span>Sign in with Google</span>
+          </div>        
         </>
     );
 }

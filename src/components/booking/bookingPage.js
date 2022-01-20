@@ -1,10 +1,10 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import scene from '../../img/scene.png';
 import { useSelector } from 'react-redux'
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 dayjs.extend(dayOfYear);
 
@@ -37,7 +37,11 @@ const PaywithPaystack = ({price, submitBooking}) => {
 	return (
 		<div className="grid justify-items-center">
 			<PaystackButton 
-				className={`${price > 0 ? 'border-blue-900' : 'border-gray-500 '} ${price > 0 ? 'text-blue-900' : 'text-gray-600'} ${price > 0 && 'hover:bg-blue-900'} ${price > 0 && 'hover:text-white'} mt-8 w-3/4 sm:w-3/5 font-bold border rounded-md py-1.5 grid place-self-center`}	
+				className={
+					`${price > 0 ? 'border-blue-900' : 'border-gray-500 '} 
+					${price > 0 ? 'text-blue-900' : 'text-gray-600'} 
+					${price > 0 && 'hover:bg-blue-900'} ${price > 0 && 'hover:text-white'} 
+					my-5 md:my-0 md:mt-5 font-bold w-3/4 sm:w-1/2 md:w-full border md:border-0 md:border-t rounded-md md:rounded-none md:rounded-b-md py-1.5 px-2 grid place-self-center`}	
 				{...componentProps}
 			/> 
 		</div>
@@ -155,10 +159,15 @@ const Booking = () => {
 		successMessage: ''
 	})
 
-
 	const resetBooking = () => {
 		resetError()
 		resetSuccess()
+		setBookings({
+			doubleDeluxe : 0,
+			deluxe: 0,
+			single: 0
+		})
+		setGuest(1)
 	}
 
 	const submitBooking = async({trxref, transaction, price}) => {
@@ -183,7 +192,8 @@ const Booking = () => {
 					auth_token: token
 				}
 			})
-			console.log(data)
+
+			resetBooking()
 		}catch(e){
 			setErrorStatus({
 				err: true,
@@ -243,14 +253,15 @@ const Booking = () => {
 								}
 				})
 				guest > maxGuest && setGuest(maxGuest)
+				resetError()
 				setPrice(data.price)
 			}catch(e){
 				resetSuccess(0)
 				setPrice(0)
-				e.response.data.errorMessage === 'One of the selected rooms is unavailable'  && 
+				let errorMessage = e.response.data.errorMessage || "One of the selected rooms is unavailable"
 				setErrorStatus({
 					err: true,
-					errorMessage: 'One of the selected room(s) is unavailable'
+					errorMessage
 				})
 			}
 		}
@@ -258,146 +269,153 @@ const Booking = () => {
 		fetchPrice()
 	},[bookings, dateRange.from, dateRange.to])
 	return (
-		<>
-			<div className="max-w-md sm:relative sm:top-2 sm:border-b-2 sm:border-gray-300 sm:rounded-xl sm:pb-10 mx-auto">
-				<span className="relative top-5 font-bold mx-3 text-2xl font-serif text-blue-600">Starlit</span>
-				<div>
-					<img src={scene} className="max-h-48 w-full" alt="" />
-				</div>
-				<div className="relative bottom-2 h-5 rounded-full bg-white"></div>
-				<form className="mx-3 grid place-items-center">
-					<h1 className="text-lg place-self-start mb-4 text-blue-900 font-bold">
-						I want to book...
-					</h1>
-					{
-						errorStatus.err && 
-						<div className="flex w-full px-1 text-sm items-center justify-between bg-red-100 text-red-700 font-semibold">
-							<h3>{errorStatus.errorMessage}</h3>
-							<i onClick={resetError} className="fa fa-times cursor-pointer"></i>
-						</div>
-					}
-					{
-						successStatus.success && 
-						<div className="flex w-full px-1 text-sm items-center justify-between bg-green-100 text-green-700 font-semibold">
-							<h3>{successStatus.successMessage}</h3>
-						</div>
-					}
-					<h4 className="place-self-start text-blue-900 font-medium">Room Type</h4>
-					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
-						<div className="font-normal">Double Deluxe</div>
-						<div className="flex">
+		<>	
+			<div className='3xl:container 3xl:mx-auto flex flex-col min-h-screen sm:h-screen w-screen form-page'>
+				<nav className='w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900'>
+					<div className='flex items-center justify-between'>
+						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
+						<Link to="/" className='px-1.5 sm:px-4 font-semibold sm:text-lg'>Home</Link>
+					</div>
+				</nav>
+				<div className='my-2 md:my-0 flex flex-col md:flex-row 2xl:max-w-screen-xl 2xl:mx-auto p-2 h-full w-full justify-evenly items-center'>
+					<div className='my-5 md: my-0 flex'>
+						<p className='font-bold text-xl text-center md:text-3xl text-gray-900'>
+							Get the best room deals right now!
+						</p>
+					</div>
+					<div className="w-11/12 max-w-lg md:max-w-md mx-auto lg:mx-0 sm:border-b-2 bg-white border-gray-300 rounded-xl pt-8 border">
+						<form className="mx-4 grid place-items-center ">
 							{
-								typeof bookings.doubleDeluxe === 'number' && bookings.doubleDeluxe !== 0 &&
-								<div className="flex">
-									<button 
-										aria-label="deselect-double-deluxe" 
-										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
-										onClick={deselectDoubleDeluxe}
-									></button>
-									<div className="mx-8 text-lg font-medium">{bookings.doubleDeluxe}</div>
+								errorStatus.err && 
+								<div className="flex w-full px-1 text-sm items-center justify-between bg-red-100 text-red-700 font-semibold">
+									<h3>{errorStatus.errorMessage}</h3>
+									<i onClick={resetError} className="fa fa-times cursor-pointer"></i>
 								</div>
-							}		
-							<button 
-								aria-label="select-double-deluxe" 
-								className="fa fa-plus border border-blue-900 text-blue-900 p-1 rounded-md"
-								onClick={selectDoubleDeluxe}
-							></button>
-						</div>
-					</div>
-					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
-						<div className="font-normal">Deluxe</div>
-						<div className="flex">
+							}
 							{
-								typeof bookings.deluxe === 'number' && bookings.deluxe !== 0 &&
-								<div className="flex">
-									<button 
-										aria-label="deselect-deluxe" 
-										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
-										onClick={deselectDeluxe}
-									></button>
-									<div className="mx-8 text-lg font-medium">{bookings.deluxe}</div>
+								successStatus.success && 
+								<div className="flex w-full px-1 text-sm items-center justify-between bg-green-100 text-green-700 font-semibold">
+									<h3>{successStatus.successMessage}</h3>
 								</div>
-							}		
-							<button 
-								aria-label="select-deluxe" 
-								className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"
-								onClick={selectDeluxe}
-							></button>
-						</div>
-					</div>
-					<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
-						<div className="font-normal">Single</div>
-						<div className="flex">
-							{
-								typeof bookings.single === 'number' && bookings.single !== 0 &&
+							}
+							<h4 className="place-self-start text-gray-800 font-medium">Room Type</h4>
+							<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
+								<div className="font-normal text-gray-600">Double Deluxe</div>
 								<div className="flex">
+									{
+										typeof bookings.doubleDeluxe === 'number' && bookings.doubleDeluxe !== 0 &&
+										<div className="flex">
+											<button 
+												aria-label="deselect-double-deluxe" 
+												className="fa fa-minus border border-gray-800 text-gray-800 rounded-md p-1"
+												onClick={deselectDoubleDeluxe}
+											></button>
+											<div className="mx-8 text-lg font-medium">{bookings.doubleDeluxe}</div>
+										</div>
+									}		
 									<button 
-										aria-label="deselect-single" 
-										className="fa fa-minus border border-blue-900 text-blue-900 rounded-md p-1"
-										onClick={deselectSingle}
+										aria-label="select-double-deluxe" 
+										className="fa fa-plus border border-gray-800 text-gray-800 p-1 rounded-md"
+										onClick={selectDoubleDeluxe}
 									></button>
-									<div className="mx-8 text-lg font-medium">{bookings.single}</div>
 								</div>
-							}		
-							<button 
-								aria-label="select-single" 
-								className="fa fa-plus border border-blue-900 text-blue-900 rounded-md p-1"
-								onClick={selectSingle}
-							></button>
-						</div>
-					</div>
-					<div className= "place-self-start w-full sm:grid sm:gap-x-3 sm:grid-cols-2">
-						<div className="my-1">
-							<label className="text-blue-900 font-medium">Check-in Date</label>
-							<input 
-								className="bg-blue-50 rounded-md border my-1 w-full p-2" 
-								type="date"
-								id='checkIn'
-								name='checkIn'
-								defaultValue={dateRange.from}
-								min={dateRange.from}
-								max={dateRange.maxFrom}
-							/>
-						</div>
-						<div className="my-1">
-							<label className="text-blue-900 font-medium my-0.5">Check-out Date</label>
-							<input 
-								className="bg-blue-50 my-1 rounded-md border w-full p-2" 
-								type="date"
-								id='checkOut'
-								name='checkOut'
-								defaultValue={dateRange.to}
-								min={dateRange.to}
-								max={dateRange.maxTo}
-							/>
-						</div>
-					</div>
-					<div className= "place-self-start w-full sm:grid sm:gap-x-3 sm:grid-cols-2">
-						<div className="my-1">
-							<div className="font-medium text-blue-900">No. of Guests</div>
-							<div className="grid grid-cols-3 bg-blue-50 rounded-md p-2 items-center w-full">						
-								<button 
-									aria-label="increment-guests" 
-									className="fa justify-self-start fa-minus border border-blue-900 rounded-md p-1 text-blue-900"
-									onClick={decrementGuests}
-								></button>
-								<div className="mx-2 text-lg font-medium justify-self-center">{guest}</div>
-								<button 
-									aria-label="decrement-guests" 
-									className="fa fa-plus p-1 border border-blue-900 rounded-md text-blue-900 justify-self-end"
-									onClick={incrementGuests}
-								></button>
 							</div>
-						</div>
+							<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
+								<div className="font-normal text-gray-600">Deluxe</div>
+								<div className="flex">
+									{
+										typeof bookings.deluxe === 'number' && bookings.deluxe !== 0 &&
+										<div className="flex">
+											<button 
+												aria-label="deselect-deluxe" 
+												className="fa fa-minus border border-gray-800 text-gray-800 rounded-md p-1"
+												onClick={deselectDeluxe}
+											></button>
+											<div className="mx-8 text-lg font-medium">{bookings.deluxe}</div>
+										</div>
+									}		
+									<button 
+										aria-label="select-deluxe" 
+										className="fa fa-plus border border-gray-800 text-gray-800 rounded-md p-1"
+										onClick={selectDeluxe}
+									></button>
+								</div>
+							</div>
+							<div className="place-self-start w-full bg-blue-50 my-1 p-2 rounded-md grid grid-cols-2-auto">
+								<div className="font-normal text-gray-600">Single</div>
+								<div className="flex">
+									{
+										typeof bookings.single === 'number' && bookings.single !== 0 &&
+										<div className="flex">
+											<button 
+												aria-label="deselect-single" 
+												className="fa fa-minus border border-gray-800 text-gray-800 rounded-md p-1"
+												onClick={deselectSingle}
+											></button>
+											<div className="mx-8 text-lg font-medium">{bookings.single}</div>
+										</div>
+									}		
+									<button 
+										aria-label="select-single" 
+										className="fa fa-plus border border-gray-800 text-gray-800 rounded-md p-1"
+										onClick={selectSingle}
+									></button>
+								</div>
+							</div>
+							<div className= "place-self-start w-full sm:grid sm:gap-x-3 sm:grid-cols-2">
+								<div className="my-1">
+									<label className="text-gray-800 font-medium">Check-in Date</label>
+									<input 
+										className="bg-blue-50 rounded-md border my-1 w-full p-2" 
+										type="date"
+										id='checkIn'
+										name='checkIn'
+										defaultValue={dateRange.from}
+										min={dateRange.from}
+										max={dateRange.maxFrom}
+									/>
+								</div>
+								<div className="my-1">
+									<label className="text-gray-800 font-medium my-0.5">Check-out Date</label>
+									<input 
+										className="bg-blue-50 my-1 rounded-md border w-full p-2" 
+										type="date"
+										id='checkOut'
+										name='checkOut'
+										defaultValue={dateRange.to}
+										min={dateRange.to}
+										max={dateRange.maxTo}
+									/>
+								</div>
+							</div>
+							<div className= "place-self-start w-full sm:grid sm:gap-x-3 sm:grid-cols-2">
+								<div className="my-1">
+									<div className="font-medium text-gray-800">No. of Guests</div>
+									<div className="grid grid-cols-3 bg-blue-50 rounded-md p-2 items-center w-full">						
+										<button 
+											aria-label="increment-guests" 
+											className="fa justify-self-start fa-minus border border-gray-800 rounded-md p-1 text-gray-800"
+											onClick={decrementGuests}
+										></button>
+										<div className="mx-2 text-lg font-medium justify-self-center">{guest}</div>
+										<button 
+											aria-label="decrement-guests" 
+											className="fa fa-plus p-1 border border-gray-800 rounded-md text-gray-800 justify-self-end"
+											onClick={incrementGuests}
+										></button>
+									</div>
+								</div>
+							</div>
+						</form>
+						{
+								price > 0 && 
+								<div className="flex w-full px-1 font-bold text-gray-900 items-center justify-end font-bold">
+									<h3 className="text-right px-3">{`Total Price: ${Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(Math.floor(price/100))}`}</h3>
+								</div>
+							}
+						<PaywithPaystack submitBooking={submitBooking} price={price}/>
 					</div>
-				</form>
-				{
-						price > 0 && 
-						<div className="flex w-full px-1 text-lg items-center justify-end font-bold">
-							<h3 className="text-right px-3">{`Total Price: ${Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(Math.floor(price/100))}`}</h3>
-						</div>
-					}
-				<PaywithPaystack submitBooking={submitBooking} price={price}/>
+				</div>
 			</div>
 		</>
 	)
