@@ -27,7 +27,7 @@ const Home = () => {
 					<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
 					<div className="flex gap-x-3 items-center">
 						<Link to='/rooms' className="px-1.5 sm:px-4 font-semibold">Rooms</Link>
-						<Link to='/' className="px-1.5 sm:px-4 font-semibold">Gallery</Link>
+						<Link to='/gallery' className="px-1.5 sm:px-4 font-semibold">Gallery</Link>
 					
 					{
 						auth.token ? 

@@ -1,5 +1,10 @@
 import {Link} from 'react-router-dom'
+import roomImage from '../../img/2.jpg'
 import suiteImage from '../../img/4.jpg'
+import hallwayImage from '../../img/5.jpg'
+import villaImage from '../../img/6.jpg'
+import massageRoomImage from '../../img/9.jpg'
+import landscapeImage from '../../img/10.jpg'
 import receptionImage from '../../img/12.jpg'
 import mainRoomImage from '../../img/13.jpg'
 
@@ -12,41 +17,39 @@ const Gallery = () => {
 						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
 						<div className="flex items-center">
                             <Link to="/" className='px-1.5 sm:px-4 font-semibold'>Home</Link>
-                            <Link to="/gallery" className='px-1.5 sm:px-4 font-semibold'>Gallery</Link>  
+                            <Link to="/rooms" className='px-1.5 sm:px-4 font-semibold'>Rooms</Link>  
                         </div>
 					</div>
 				</nav>
-                <div className='flex max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
-                    <section className='flex flex-col gap-y-2 self-center items-center xl:gap-y-5 w-1/5'>
+                <div className='flex flex-col md:flex-row gap-y-8 items-center md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
+                    <section className='flex flex-col gap-y-5 md:gap-y-2 self-center items-center xl:gap-y-5 w-2/3 max-w-xs md:w-1/5'>
                         <header className='font-semibold text-sm text-center md:text-base'>
                             Photos of <span className='text-gray-900'>AXD Ville</span> showing
                             their outstanding scenery and
                             luxury
                         </header>
-                        <footer>
-                            <Link 
-                                to="/booking"
-                                className="bg-gray-900 hover:bg-black rounded-md relative top-2 sm:top-5 py-3 px-2 sm:py-3 sm:px-4 font-bold text-sm text-white border border-gray-800 border-2"
-                            >
-                                Book a Room
-                            </Link>
-                        </footer>
+                       <Link 
+                            to="/booking"
+                            className="bg-gray-900 hover:bg-black rounded-md relative md:top-5 py-3 px-2 sm:py-3 sm:px-4 font-bold text-sm text-white border border-gray-800 border-2"
+                        >
+                            Book a Room
+                        </Link>
                     </section>
-                    <img alt='' src={suiteImage} className='w-1/5'/>
-                    <img alt='' src={suiteImage} className='w-1/5 md:relative md:bottom-2 lg:bottom-4'/>
-                    <img alt='' src={mainRoomImage} className='w-1/5 md:relative z-10 md:top-16 lg:top-20'/>
+                    <img alt='' src={suiteImage} className='w-2/3 max-w-xs md:w-1/5'/>
+                    <img alt='' src={hallwayImage} className='w-2/3 max-w-xs md:w-1/5 md:relative md:bottom-2 lg:bottom-4'/>
+                    <img alt='' src={mainRoomImage} className='w-2/3 max-w-xs md:w-1/5 md:relative z-10 md:top-16 lg:top-20'/>
                 </div>
-                <div className='flex max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
-                    <img alt='' src={receptionImage} className='w-1/5'/>
-                    <img alt='' src={receptionImage} className='w-1/5 md:relative z-10 md:top-16 lg:top-20'/>
-                    <img alt='' src={receptionImage} className='w-1/5'/>
-                    <div alt='' src={receptionImage} className='w-1/5 hidden md:block'></div>
+                <div className='flex flex-col md:flex-row items-center gap-y-8 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
+                    <img alt='' src={villaImage} className='w-2/3 max-w-xs md:w-1/5'/>
+                    <img alt='' src={landscapeImage} className='w-2/3 max-w-xs md:w-1/5 md:relative z-10 md:top-16 lg:top-20'/>
+                    <img alt='' src={roomImage} className='w-2/3 max-w-xs md:w-1/5'/>
+                    <div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
                 </div>
-                <div className='flex max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
-                <div alt='' src={receptionImage} className='w-1/5 hidden md:block'></div>
-                    <div alt='' src={receptionImage} className='w-1/5 hidden md:block'></div>
-                    <img alt='' src={receptionImage} className='w-1/5'/>
-                    <img alt='' src={receptionImage} className='w-1/5 md:relative md:bottom-8 lg:bottom-10'/>
+                <div className='flex flex-col md:flex-row items-center gap-y-8 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
+                    <div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
+                    <div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
+                    <img alt='' src={massageRoomImage} className='w-2/3 max-w-xs md:w-1/5'/>
+                    <img alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 md:relative md:bottom-8 lg:bottom-10'/>
                 </div>
             </div>
         </>
