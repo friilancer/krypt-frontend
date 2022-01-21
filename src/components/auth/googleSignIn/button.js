@@ -12,9 +12,8 @@ const loadGoogleScript = () => {
         
         // We have at least one script (React)
         const firstJs = document.getElementsByTagName('script')[0]; 
+      
         
-        // Prevent script from loading twice
-        if (document.getElementById(id)) { return; } // (Ref. 3)
         const js = document.createElement('script'); // (Ref. 4)
         js.id = id;
         js.src = src;

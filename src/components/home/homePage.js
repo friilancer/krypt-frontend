@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import sneakPeek from '../../img/6.jpg';
-import {verifyUser} from '../../redux/actions/authActions';
+import { useSelector} from 'react-redux';
+import sneakPeek from '../../img/1.jpg';
 
 const useWindowSize = () => {
   const [size, setSize] = useState(0);
@@ -27,14 +26,14 @@ const Home = () => {
 				<nav className="text-gray-800 px-3 sm:px-5 py-2 border-b-2 flex items-center justify-between border-gray-800">
 					<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
 					<div className="flex gap-x-3 items-center">
-						<Link to='/' className="px-1.5 sm:px-4 font-semibold sm:text-lg">Rooms</Link>
-						<Link to='/' className="px-1.5 sm:px-4 font-semibold sm:text-lg">Gallery</Link>
+						<Link to='/rooms' className="px-1.5 sm:px-4 font-semibold">Rooms</Link>
+						<Link to='/' className="px-1.5 sm:px-4 font-semibold">Gallery</Link>
 					
 					{
 						auth.token ? 
-							<Link to="/" className="flex px-1.5 sm:px-4 items-center gap-x-2 font-semibold sm:text-lg">
+							<Link to="/" className="flex px-1.5 sm:px-4 items-center gap-x-2 font-semibold ">
 								<p className="">{`Hey, ${auth.user.lastName}`}</p>
-								<i className="fa fa-user"></i>
+								<i className="fa fa-user text-gray-500"></i>
 							</Link>
 						:
 							<div className="flex gap-x-3 sm:gap-x-8 items-center">
@@ -59,25 +58,25 @@ const Home = () => {
 						<div className="text-gray-800 text-center lg:text-left mt-3 items-end grid gap-y-8 sm:gap-y-0 lg:flex lg:justify-between pl-5 pr-3 sm:px-2">
 							<div className='basis-2/3' >
 								<p className="text-gray-900 font-bold">
-									Lorem ipsium Lorem ipsium Lorem ipsium
+									Your comfort is our happiness
 								</p>
 								<p>
-									Lorem ipsium Lorem ipsium Lorem ipsium Lorem ipsium Lorem ipsium 
-									Lorem ipsium Lorem ipsium Lorem ipsium Lorem ipsium Lorem ipsium 
-									Lorem ipsium Lorem ipsium  
+									Take advantage of the serenity, calm and luxury we offer.
+									Get the best of services and enjoy your stay. We deliver a total experience
+									and inject fun into your stay.
+									The best holidays begin here!									
 								</p>
 							</div>
-							<Link to='/booking' className="place-self-end  rounded-md py-3 px-4 font-bold text-sm bg-transparent border border-gray-800 border-2">
+							<Link to='/booking' className="place-self-end bg-gray-900 hover:bg-black rounded-md py-3 px-4 font-bold text-sm text-white border border-gray-800 border-2">
 								Book A Room
 							</Link>
 						</div>
 					</div>
 				</div>
-				<div>
-					<section>
-						<p>(+234) 00000000</p>
-					</section>
-				</div>
+				<footer className='max-w-screen-md w-2/3 font-semibold text-sm mx-auto flex items-center justify-center gap-x-5 px-3'>
+					<p>(+234) 00000000</p>
+					<p>ipsium@axdville.com</p>
+				</footer>
 		</div>
 	)
 };

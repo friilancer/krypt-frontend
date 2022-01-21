@@ -274,7 +274,7 @@ const Booking = () => {
 				<nav className='w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900'>
 					<div className='flex items-center justify-between'>
 						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
-						<Link to="/" className='px-1.5 sm:px-4 font-semibold sm:text-lg'>Home</Link>
+						<Link to="/" className='px-1.5 sm:px-4 font-semibold'>Home</Link>
 					</div>
 				</nav>
 				<div className='my-2 md:my-0 flex flex-col md:flex-row 2xl:max-w-screen-xl 2xl:mx-auto p-2 h-full w-full justify-evenly items-center'>
