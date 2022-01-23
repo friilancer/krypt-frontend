@@ -55,7 +55,7 @@ const SignIn = () => {
 
 	return (
 		<>
-			<div className='3xl:container 3xl:mx-auto flex flex-col justify-center min-h-screen sm:h-screen w-screen form-page'>
+			<div className='md:animate-fadeIn flex flex-col justify-center min-h-screen sm:h-screen w-screen form-page'>
 				<nav className='fixed top-0 w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900'>
 					<div className=' flex items-center justify-between'>
 						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
