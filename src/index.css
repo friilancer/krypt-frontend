@@ -6,6 +6,64 @@
 .home-lg{
   background: linear-gradient(to right,rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.6) 100%), url('img/3.jpg') no-repeat center center / cover;
 }
+.bgSuiteImage{
+  background: url('img/4.jpg') no-repeat center center / cover;
+}
+.bgHallwayImage{
+  background: url('img/5.jpg') no-repeat center center / cover;
+}
+.bgRoomImage{
+  background: url('img/13.jpg') no-repeat center center / cover;
+}
+.bgDiningImage{
+  background: url('img/6.jpg') no-repeat center center / cover;
+}
+.bgLandscapeImage{
+  background: url('img/10.jpg') no-repeat center center / cover;
+}
+.bgRoomPeekImage{
+  background: url('img/2.jpg') no-repeat center center / cover;
+}
+.bgMassageRoomImage{
+  background: url('img/9.jpg') no-repeat center center / cover;
+}
+.bgReceptionImage{
+  background: url('img/12.jpg') no-repeat center center / cover;
+}
+
+.bgSuiteImage > *,
+.bgRoomImage > *,
+.bgLandscapeImage > *,
+.bgDiningImage > *,
+.bgRoomPeekImage > *,
+.bgReceptionImage > *,
+.bgMassageRoomImage > *,
+.bgHallwayImage > *{
+  display: none;
+}
+
+
+.bgSuiteImage:hover >  *,
+.bgDiningImage:hover >  *,
+.bgLandscapeImage:hover >  *,
+.bgRoomImage:hover >  *,
+.bgMassageRoomImage:hover >  *,
+.bgRoomPeekImage:hover >  *,
+.bgReceptionImage:hover >  *,
+.bgHallwayImage:hover > *{
+  display: flex;
+}
+
+.bgSuiteImage:hover,
+.bgRoomImage:hover,
+.bgLandscapeImage:hover,
+.bgDiningImage:hover,
+.bgRoomPeekImage:hover,
+.bgReceptionImage:hover,
+.bgMassageRoomImage:hover,
+.bgHallwayImage:hover{
+  background: #6b99fc;
+}
 
 .home{
   background: linear-gradient(to left, rgba(0, 0, 0, 0.1) 50%,rgb(255,255,255) 10%, rgb(255,255,255));
@@ -25,10 +83,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media screen {
-  
 }
 
 @media screen and (min-width:768px){

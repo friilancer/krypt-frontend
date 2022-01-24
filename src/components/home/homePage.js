@@ -6,14 +6,8 @@ import sneakPeek from '../../img/1.jpg';
 import doubleDeluxeRoomImage from '../../img/14.jpg'
 import deluxeRoomImage from '../../img/15.jpg'
 import singleRoomImage from '../../img/16.jpg'
-import roomImage from '../../img/2.jpg'
 import suiteImage from '../../img/4.jpg'
-import hallwayImage from '../../img/5.jpg'
-import villaImage from '../../img/6.jpg'
-import massageRoomImage from '../../img/9.jpg'
-import landscapeImage from '../../img/10.jpg'
 import receptionImage from '../../img/12.jpg'
-import mainRoomImage from '../../img/13.jpg'
 
 const useWindowSize = () => {
   const [size, setSize] = useState(0);
@@ -148,7 +142,7 @@ const Home = () => {
 							to='home' 
 							spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('home', 'gallery')}
 							className={`
-							${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''} 
+							${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'} 
 							text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 						>
 							<div className='text-gray-900 '>Home</div>
@@ -163,7 +157,7 @@ const Home = () => {
 						to='rooms' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('rooms', 'home')}
 						className={`
-						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}						
+						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}						
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Rooms</div>
@@ -178,7 +172,7 @@ const Home = () => {
 						to='gallery' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('gallery', 'home')}
 						className={`
-						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Gallery</div>
@@ -199,7 +193,7 @@ const Home = () => {
 			<div name="rooms" className={
 				`${activePage === 'rooms' ? 'md:animate-zoomIn md:delay-1000' : ''} 
 				${previousPage === 'rooms' ? 'md:animate-zoomOut md:delay-0' : ''} 
-				md:h-screen w-screen lg:py-2 lg:gap-y-3 flex flex-col py-5 lg:flex-row mx-auto gap-x-5 gap-y-5 lg:gap-x-10 px-2 sm:px-5`}>
+				md:h-screen w-screen lg:py-2 lg:gap-y-3 flex flex-col py-5 md:flex-row mx-auto gap-x-5 gap-y-5 lg:gap-x-10 px-2 sm:px-5`}>
 				<section className='self-center flex text-center flex-col gap-y-5'>
 					<header className='font-bold text-lg'>
 						Rooms
@@ -307,7 +301,7 @@ const Home = () => {
 						to='home' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('home', 'rooms')}
 						className={`
-						${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Home</div>
@@ -322,7 +316,7 @@ const Home = () => {
 						to='rooms' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('rooms', 'home')}
 						className={`
-						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Rooms</div>
@@ -338,7 +332,7 @@ const Home = () => {
 						to='gallery' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('gallery', 'rooms')}
 						className={`
-						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Gallery</div>
@@ -357,42 +351,67 @@ const Home = () => {
 				${previousPage === 'gallery' ? 'md:animate-zoomOut md:delay-0' : ''}  
 				flex flex-col sm:h-screen w-full mx-auto`}>
 					<div className='flex flex-col md:flex-row gap-y-6 items-center md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 mx-auto w-full'>
-						<section className='flex flex-col gap-y-5 md:gap-y-2 self-center items-center xl:gap-y-5 w-2/3 max-w-xs md:w-1/5'>
-							<header className='font-semibold text-sm text-center md:text-base'>
-								Photos of <span className='text-gray-900'>AXD Ville</span> showing
-								their outstanding scenery and
-								luxury
-							</header>
-						<Link 
-								to="/booking"
-								className="bg-gray-900 hover:bg-black rounded-md relative md:top-5 py-3 px-2 sm:py-3 sm:px-4 font-bold text-sm text-white border border-gray-800 border-2"
-							>
-								Book a Room
-							</Link>
-						</section>
-						<img alt='' src={suiteImage} className='w-2/3 max-w-xs md:w-1/5 lg:w-1/6'/>
-						<img alt='' src={hallwayImage} className='w-2/3 max-w-xs md:w-1/5 lg:w-1/6 md:relative md:bottom-2 '/>
-						<img alt='' src={mainRoomImage} className='w-2/3 max-w-xs md:w-1/5 lg:w-1/6 md:relative z-10 md:top-16 lg:top-20'/>
-					</div>
-					<div className='flex flex-col md:flex-row items-center gap-y-6 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 lg:py-1 lg:my-1 mx-auto w-full'>
-						<img alt='' src={villaImage} className='w-2/3 max-w-xs md:w-1/5'/>
-						<img alt='' src={landscapeImage} className='w-2/3 max-w-xs md:w-1/5 md:relative z-10 md:top-16 lg:top-20'/>
-						<img alt='' src={roomImage} className='w-2/3 max-w-xs md:w-1/5'/>
-						<div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
-					</div>
-					<div className='flex flex-col md:flex-row items-center gap-y-6 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 lg:py-1 lg:my-1 mx-auto w-full'>
-						<div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
-						<div alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:block'></div>
-						<img alt='' src={massageRoomImage} className='w-2/3 max-w-xs md:w-1/5'/>
-						<img alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 md:relative md:bottom-8 lg:bottom-10'/>
-					</div>
+					<section className='flex flex-col gap-y-5 md:gap-y-2 self-center items-center xl:gap-y-5 w-2/3 max-w-xs md:w-1/5'>
+						<header className='font-semibold text-sm text-center md:text-base'>
+							Photos of <span className='text-gray-900'>AXD Ville</span> showing
+							their outstanding scenery and
+							luxury
+						</header>
+					    <Link 
+							to="/booking"
+							className="bg-gray-900 hover:bg-black rounded-md relative md:top-5 py-3 px-2 sm:py-3 sm:px-4 font-bold text-sm text-white border border-gray-800 border-2"
+						>
+							Book a Room
+					    </Link>
+					</section>
+                    <div className='w-2/3 max-w-xs md:w-1/5 bgSuiteImage lg:w-1/6 flex flex-col items-center justify-center cursor-pointer'>
+                            <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Main Suite</span>
+                            <span className='text-sm font-semibold text-center'>Get King-sized treatment</span>
+                    </div>
+                    <img alt='' src={suiteImage} className='w-0 max-w-xs md:w-1/6 hidden md:invisible md:block'/>
+                    <div className='w-2/3 max-w-xs md:w-1/5 bgHallwayImage lg:w-1/6 flex flex-col md:relative md:right-20 items-center justify-center cursor-pointer md:relative md:bottom-2 '>
+                            <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Hallway</span>
+                            <span className='text-sm font-semibold text-center'>Steppin'</span>
+                    </div>
+                    <div className='w-2/3 max-w-xs bgRoomImage md:w-1/5 lg:w-1/6 flex flex-col items-center justify-center cursor-pointer md:relative z-10 md:top-16 lg:top-20'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Bedroom</span>
+                        <span className='text-sm font-semibold text-center'>Experience relaxation</span>
+                    </div>
+				</div>
+				<div className='flex flex-col md:flex-row items-center gap-y-6 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 lg:py-1 lg:my-1 mx-auto w-full'>
+                    <div className='w-2/3 max-w-xs md:w-1/5 bgDiningImage flex flex-col items-center justify-center cursor-pointer'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Private Dining</span>
+                        <span className='text-sm font-semibold text-center'>Eat Healthy</span>
+                    </div>
+                    <div className='w-2/3 max-w-xs md:w-1/5 bgLandscapeImage flex flex-col items-center justify-center cursor-pointer md:relative z-10 md:top-16 lg:top-20'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Pool side</span>
+                        <span className='text-sm font-semibold text-center'>Serene surroundings</span>
+                    </div>
+					<div className='w-2/3 max-w-xs md:w-1/5 bgRoomPeekImage flex flex-col items-center justify-center cursor-pointer'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Room Image</span>
+                        <span className='text-sm font-semibold text-center'>Peek of the ambience</span>
+                    </div>
+					<img alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:invisible md:block' />
+				</div>
+				<div className='flex flex-col md:flex-row items-center gap-y-6 md:items-stretch max-w-screen-xl justify-evenly py-3 my-3 lg:py-1 lg:my-1 mx-auto w-full'>
+					<img alt='' src={receptionImage} className='w-2/3 max-w-xs md:w-1/5 hidden md:invisible md:block' />
+                    <div className='w-2/3 max-w-xs md:w-1/5 flex flex-col items-center jhidden md:invisible md:block'></div>
+					<div className='w-2/3 max-w-xs md:w-1/5 bgMassageRoomImage flex flex-col items-center justify-center cursor-pointer'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Massage Rooms</span>
+                        <span className='text-sm font-semibold text-center'>Get comfy massages</span>
+                    </div>
+                    <div className='w-2/3 max-w-xs md:w-1/5 bgReceptionImage h-full md:relative md:bottom-8 lg:bottom-10 flex flex-col items-center justify-center cursor-pointer'>
+                        <span className='font-bold text-lg md:text-xl xl:text-2xl text-center'>Reception</span>
+                        <span className='text-sm font-semibold text-center'>Welcome to AXD Ville</span>
+                    </div>
+				</div>
 				</div>
 				<aside className='self-center hidden w-30 md:flex flex-col relative right-5 gap-y-3 items-end font-semibold px-1'>
 					<ScrollLink 
 						to='home' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('home', 'gallery')}
 						className={`
-						${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'home' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Home</div>
@@ -407,7 +426,7 @@ const Home = () => {
 						to='rooms' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('rooms', 'gallery')}
 						className={`
-						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'rooms' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Rooms</div>
@@ -422,7 +441,7 @@ const Home = () => {
 						to='gallery' 
 						spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('gallery', 'home')}
 						className={`
-						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : ''}
+						${activePage === 'gallery' ? 'text-blue-600 animate-fadeInRight delay-1000 font-bold' : 'text-gray-600'}
 						text-sm flex gap-x-1 lg:gap-x-2 items-center cursor-pointer`}
 					>
 						<div className='text-gray-900 '>Gallery</div>
