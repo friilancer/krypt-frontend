@@ -7,7 +7,8 @@ module.exports = withAnimations({
   theme: {
     extend: {
       gridTemplateColumns: {
-        '2-auto': '1fr auto'
+        '2-auto': '1fr auto',
+        '3-auto': '1fr 1fr auto'
       },
       gridTemplateRows: {
         'auto-2': 'auto 1fr'
