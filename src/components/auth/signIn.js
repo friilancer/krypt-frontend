@@ -47,7 +47,7 @@ const SignIn = () => {
 			let {token, user} = data;
 			setLoginError(false)
 			dispatch({type:'LOGIN_USER', payload:{token, user}});
-			return redirect()
+			redirect()
 		}catch(e){
 			return setLoginError(true)
 		}

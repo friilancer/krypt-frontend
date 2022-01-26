@@ -16,7 +16,7 @@ function App() {
       <Router>
         <Switch>
           <ProtectedRoute path='/booking' component={Booking} exact />
-          <ProtectedRoute path='/user:id' component={User} exact />
+          <ProtectedRoute path='/user' component={User} exact />
           <Route path='/signup' component={SignUp} exact />
           <Route path='/signin' component={SignIn} exact />          
           <Route path='/' component={Home} />

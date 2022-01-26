@@ -48,6 +48,30 @@ const PaywithPaystack = ({price, submitBooking}) => {
 	)
 }
 
+const SuccessPopup = ({setIsOpen}) => {
+	return (
+		<div className='w-screen h-screen fixed grid bg-black/90 place-items-center top-0 left-0'>
+			<div className='w-11/12 max-w-sm mx-auto shadow-lg rounded-md gap-y-3 p-2 md:py-4 bg-white flex items-center flex-col'>
+				<i class="fas fa-times text-red-900 self-end cursor-pointer" onClick={() => setIsOpen(false)}></i>
+				<div className='flex flex-col items-center my-8'>
+					<i class="fas fa-check-square text-green-500 text-2xl"></i>
+					<span className='font-semibold'>Thanks for making a reservation with us</span>
+				</div>
+				<div className='flex gap-x-4 md:gap-x-6 mb-3'>
+					<Link className='text-xs font-semibold sm:text-sm sm:font-normal cursor-pointer text-blue-500' to="/user">
+						My Bookings
+					</Link>
+					<span 
+						className='text-xs font-semibold sm:text-sm sm:font-normal cursor-pointer text-blue-500' 
+						onClick={() => setIsOpen(false)}
+					>
+						Make another reservation
+					</span>
+				</div>
+			</div>
+		</div>
+	)
+}
 const Booking = (displayNav) => {
 	const [bookings, setBookings] = useState({
 		doubleDeluxe : 0,
@@ -73,6 +97,8 @@ const Booking = (displayNav) => {
 	})
 
 	const [price, setPrice] = useState(0);
+
+	const [isOpen, setIsOpen] = useState(false)
 
 	const [successStatus, setSuccessStatus] = useState({
 		success: false,
@@ -149,6 +175,24 @@ const Booking = (displayNav) => {
 		setGuest(prevGuest => prevGuest >= maxGuest ? maxGuest : prevGuest + 1)		
 	}
 
+	const setCheckInDate = (e) => {
+		setDateRange(prev => {
+			return {
+				...prev,
+				from: e.target.value
+			}
+		})
+	}
+
+	const setCheckOutDate = (e) => {
+		setDateRange(prev => {
+			return {
+				...prev,
+				to: e.target.value
+			}
+		})
+	}
+
 	const resetError = () => setErrorStatus({
 		err: false,
 		errorMessage: ''
@@ -159,6 +203,20 @@ const Booking = (displayNav) => {
 		successMessage: ''
 	})
 
+	const resetDateRanges = () => {
+			
+		let from = dayjs().format('YYYY-MM-DD');
+		let to = dayjs().add(1, 'd').format('YYYY-MM-DD')
+		let maxFrom = dayjs().add(3, 'M').format('YYYY-MM-DD')
+		let maxTo = dayjs().add(1, 'd').add(3, 'M').format('YYYY-MM-DD')
+		setDateRange({
+			from,
+			to,
+			maxFrom,
+			maxTo
+		})
+	}
+
 	const resetBooking = () => {
 		resetError()
 		resetSuccess()
@@ -167,6 +225,7 @@ const Booking = (displayNav) => {
 			deluxe: 0,
 			single: 0
 		})
+		resetDateRanges()
 		setGuest(1)
 	}
 
@@ -193,6 +252,7 @@ const Booking = (displayNav) => {
 				}
 			})
 
+			setIsOpen(true)
 			resetBooking()
 		}catch(e){
 			setErrorStatus({
@@ -204,20 +264,7 @@ const Booking = (displayNav) => {
 	}
 
 	useEffect(() => {
-		const defineDateRanges = () => {
-			
-			let from = dayjs().format('YYYY-MM-DD');
-			let to = dayjs().add(1, 'd').format('YYYY-MM-DD')
-			let maxFrom = dayjs().add(3, 'M').format('YYYY-MM-DD')
-			let maxTo = dayjs().add(1, 'd').add(3, 'M').format('YYYY-MM-DD')
-			setDateRange({
-				from,
-				to,
-				maxFrom,
-				maxTo
-			})
-		}
-		defineDateRanges()
+		resetDateRanges()
 	},[])
 
 	useEffect(() => {
@@ -370,6 +417,7 @@ const Booking = (displayNav) => {
 										type="date"
 										id='checkIn'
 										name='checkIn'
+										onChange={setCheckInDate}
 										defaultValue={dateRange.from}
 										min={dateRange.from}
 										max={dateRange.maxFrom}
@@ -382,6 +430,7 @@ const Booking = (displayNav) => {
 										type="date"
 										id='checkOut'
 										name='checkOut'
+										onChange={setCheckOutDate}
 										defaultValue={dateRange.to}
 										min={dateRange.to}
 										max={dateRange.maxTo}
@@ -416,6 +465,9 @@ const Booking = (displayNav) => {
 						<PaywithPaystack submitBooking={submitBooking} price={price}/>
 					</div>
 				</div>
+				{
+					isOpen && <SuccessPopup setIsOpen={setIsOpen} />
+				}
 			</div>
 		</>
 	)

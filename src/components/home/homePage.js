@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector} from 'react-redux';
-import { Link as ScrollLink, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
 import sneakPeek from '../../img/1.jpg';
 import doubleDeluxeRoomImage from '../../img/14.jpg'
 import deluxeRoomImage from '../../img/15.jpg'
@@ -75,14 +75,14 @@ const Home = () => {
 				${size > 1021 ? 'home-lg' : 'home'} 
 				${activePage === 'home' ? 'md:animate-zoomIn md:delay-1000' : ''} 
 				${previousPage === 'home' ? 'md:animate-zoomOut md:delay-0' : ''} 
-				h-screen grid w-screen max-w-fit grid-rows-auto-2 items-center py-3 md:py-8`}>
+				h-screen grid w-screen max-w-fit grid-rows-auto-2 items-center py-3 md:py-8 `}>
 				<nav className="text-gray-800 px-3 sm:px-5 py-2 border-b-2 flex items-center justify-between border-gray-800">
 					<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
-					<div className="flex gap-x-3 items-center">
+					<div className="flex gap-x-1 items-center text-sm">
 						<ScrollLink 
 							to='rooms' 
 							spy={true} smooth={true} duration={size > 765 ? 0 : 200} delay={1000} onSetActive={() => animatePage('rooms', 'home')}
-							className="md:hidden block px-1.5 sm:px-4 cursor-pointer font-semibold"
+							className="md:hidden block px-1 sm:px-4 cursor-pointer font-semibold"
 						>
 							Rooms
 						</ScrollLink>
@@ -96,7 +96,7 @@ const Home = () => {
 					
 					{
 						auth.token ? 
-							<Link to="/" className="flex px-1.5 sm:px-4 items-center gap-x-2 font-semibold ">
+							<Link to="/user" className="flex px-1.5 sm:px-4 items-center gap-x-2 font-semibold ">
 								<p className="">{`Hey, ${auth.user.lastName}`}</p>
 								<i className="fa fa-user text-gray-500"></i>
 							</Link>
