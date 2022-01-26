@@ -230,12 +230,12 @@ const Booking = (displayNav) => {
 	}
 
 	const submitBooking = async({trxref, transaction, price}) => {
-		let arr = Object.entries(bookings).filter(([key, value]) => value > 0);
+		let arr = Object.entries(bookings).filter(([_, value]) => value > 0);
 
 		let bookedRooms = Object.fromEntries(arr);
 
 		try{
-			const {data} = await axios({
+			await axios({
 				url:'/api/guest/booking/',
 				method:'post',
 				data:{

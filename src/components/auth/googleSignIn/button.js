@@ -53,8 +53,9 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
     }
 
     useEffect(() => {
-    
+      let mounted = true
         // Window.gapi is available at this point
+      if(mounted){
         window.onGoogleScriptLoad = () => { // (Ref. 1)
          
           const _gapi = window.gapi; // (Ref. 2)
@@ -74,7 +75,8 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
         
         // Ensure everything is set before loading the script
         loadGoogleScript(); // (Ref. 9)
-        
+      }
+        return () => mounted =  false;
     }, []);
 
 

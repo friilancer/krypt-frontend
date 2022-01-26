@@ -1,5 +1,4 @@
-import {GET_USER, LOGIN_USER, EDIT_USER, LOGOUT_USER} from '../actions/types';
-import axios from 'axios'
+import {GET_USER, LOGIN_USER, LOGOUT_USER} from '../actions/types';
 
 const initialState ={};
 
@@ -16,12 +15,6 @@ const reducerFunction = (state=initialState, action) => {
 			return {
 				...state,
 				...action.payload
-			}
-		}
-		case EDIT_USER:{
-			return{
-				...state,
-				user:action.payload
 			}
 		}
 		case LOGOUT_USER:{

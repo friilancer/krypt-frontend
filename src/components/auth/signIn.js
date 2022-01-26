@@ -14,7 +14,7 @@ const SignIn = () => {
 
 	const [loginError, setLoginError] = useState(false)
 
-	const auth =  useSelector(state => state.auth)
+	const {token} =  useSelector(state => state.auth)
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -30,12 +30,12 @@ const SignIn = () => {
 
 	useEffect(() => {
 		const verifyLogin = () => {
-			if(auth.token){
+			if(token){
 				redirect()
 			}
 		}		
 		verifyLogin()
-	},[auth])
+	},[token])
 
 	const submitHandler = async(e) => {
 		e.preventDefault();

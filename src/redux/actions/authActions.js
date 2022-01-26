@@ -1,4 +1,4 @@
-import {GET_USER, LOGIN_USER, EDIT_USER, LOGOUT_USER} from './types';
+import {GET_USER, LOGIN_USER, LOGOUT_USER} from './types';
 import axios from 'axios'
 
 export const verifyUser = () => async dispatch => {
@@ -33,13 +33,6 @@ export const loginUser = (userCredentials) => {
 	return {
 		type: LOGIN_USER,
 		payload: userCredentials
-	}
-}
-
-export const editUser = ({firstName, lastName}) => {
-	return {
-		type: EDIT_USER,
-		payload: {firstName, lastName}
 	}
 }
 
