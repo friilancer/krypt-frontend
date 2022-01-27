@@ -315,6 +315,7 @@ const Booking = (displayNav) => {
 
 		fetchPrice()
 	},[bookings, dateRange.from, dateRange.to])
+	
 	return (
 		<>	
 			<div className='md:animate-fadeIn flex flex-col min-h-screen lg:min-h-0 sm:h-screen w-screen form-page'>
