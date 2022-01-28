@@ -18,7 +18,7 @@ const User = () => {
         const getBookings = async() => {
             try{
                 const {data} = await axios({
-                    url:'/api/guest/booking/',
+                    url:'https://kryptbackend.herokuapp.com/api/guest/booking/',
                     method:'get',
                     headers: {
                         auth_token: token
@@ -41,7 +41,7 @@ const User = () => {
     const deleteBooking = async(bookingId, token) => {
         try{
             const {data} = await axios({
-                url:`/api/guest/booking/${bookingId}`,
+                url:`https://kryptbackend.herokuapp.com/api/guest/booking/${bookingId}`,
                 method:'delete',
                 headers: {
                     auth_token: token

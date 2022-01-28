@@ -34,7 +34,7 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
 
     const verifyUser = async(id_token) => {
       try{
-        const {data} = await axios.post('/api/guest/verify/googleUser', {
+        const {data} = await axios.post('https://kryptbackend.herokuapp.com/api/guest/verify/googleUser', {
           token:id_token
         })
         let {token, user} = data;
@@ -86,7 +86,7 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
             className="flex items-center gap-x-5 mt-8 w-3/4 sm:w-3/5 cursor-pointer font-semibold border border-b-gray-400 text-gray-500 rounded-md" 
             ref={googleAuthButton}
           >
-            <img src={googleIcon}/>
+            <img alt='' src={googleIcon}/>
             <span>Sign in with Google</span>
           </div>        
         </>
