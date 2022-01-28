@@ -5,7 +5,7 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+axios.defaults.withCredentials = true;
 dayjs.extend(dayOfYear);
 
 const PaywithPaystack = ({price, submitBooking}) => {	

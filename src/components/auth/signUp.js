@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
 import GoogleSignIn from './googleSignIn/button';
 import { Link } from 'react-router-dom';
+axios.defaults.withCredentials = true;
 
 const SignUp = () => {
 	const [inputOptions, setInputOptions] = useState({

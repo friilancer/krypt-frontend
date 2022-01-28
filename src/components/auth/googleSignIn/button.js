@@ -2,6 +2,7 @@ import {useEffect, useState, useRef} from 'react';
 import googleIcon from '../../../img/btn_google_light_normal_ios.svg';
 import { useDispatch } from 'react-redux';
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 const loadGoogleScript = () => {
   

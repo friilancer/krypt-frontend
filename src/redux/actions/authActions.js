@@ -1,5 +1,6 @@
 import {GET_USER, LOGIN_USER, LOGOUT_USER} from './types';
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 export const verifyUser = () => async dispatch => {
 	let token = localStorage.getItem('auth_token');
