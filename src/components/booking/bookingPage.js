@@ -5,7 +5,7 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-axios.defaults.withCredentials = true;
+
 dayjs.extend(dayOfYear);
 
 const PaywithPaystack = ({price, submitBooking}) => {	
@@ -236,7 +236,7 @@ const Booking = (displayNav) => {
 
 		try{
 			await axios({
-				url:'https://kryptbackend.herokuapp.com/api/guest/booking/',
+				url:'/api/guest/booking/',
 				method:'post',
 				data:{
 					rooms: bookedRooms,
@@ -287,7 +287,7 @@ const Booking = (displayNav) => {
 					return  setPrice(0);
 				}
 				const {data} = await axios({
-								url:'https://kryptbackend.herokuapp.com/api/guest/booking/validation',
+								url:'/api/guest/booking/validation',
 								method:'post',
 								data:{
 									rooms: bookedRooms,

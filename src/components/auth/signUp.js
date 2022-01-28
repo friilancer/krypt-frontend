@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
 import GoogleSignIn from './googleSignIn/button';
 import { Link } from 'react-router-dom';
-axios.defaults.withCredentials = true;
 
 const SignUp = () => {
 	const [inputOptions, setInputOptions] = useState({
@@ -33,7 +32,7 @@ const SignUp = () => {
 	const submitHandler = async(e) => {
 		e.preventDefault();
 		try{
-			let {data} =  await axios.post('https://kryptbackend.herokuapp.com/api/guest/register', {
+			let {data} =  await axios.post('/api/guest/register', {
 				firstName: inputOptions.firstName,
 				lastName: inputOptions.lastName,
 				phoneNumber: inputOptions.phoneNumber,

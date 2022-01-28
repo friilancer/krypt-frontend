@@ -40,7 +40,7 @@ const SignIn = () => {
 	const submitHandler = async(e) => {
 		e.preventDefault();
 		try{
-			let {data} = await axios.post('https://kryptbackend.herokuapp.com/api/guest/login', {
+			let {data} = await axios.post('/api/guest/login', {
 				email : inputOptions.signInEmail,
 				password: inputOptions.signInPassword
 			})

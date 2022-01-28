@@ -1,13 +1,12 @@
 import {GET_USER, LOGIN_USER, LOGOUT_USER} from './types';
 import axios from 'axios'
-axios.defaults.withCredentials = true;
 
 export const verifyUser = () => async dispatch => {
 	let token = localStorage.getItem('auth_token');
 	if(token){
 		try {
 			let {data} = await axios({
-				url: 'https://kryptbackend.herokuapp.com/api/guest/verify',
+				url: 'api/guest/verify',
 				method: 'get',
 				headers: {
 					auth_token: token
