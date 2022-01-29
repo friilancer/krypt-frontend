@@ -86,7 +86,7 @@ const GoogleSignIn = ({loginError, setLoginError, redirect}) => {
             className="flex items-center gap-x-5 mt-8 w-3/4 sm:w-3/5 cursor-pointer font-semibold border border-b-gray-400 text-gray-500 rounded-md" 
             ref={googleAuthButton}
           >
-            <img src={googleIcon}/>
+            <img alt='Google Icon' src={googleIcon}/>
             <span>Sign in with Google</span>
           </div>        
         </>

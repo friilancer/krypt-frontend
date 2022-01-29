@@ -6,7 +6,7 @@ export const verifyUser = () => async dispatch => {
 	if(token){
 		try {
 			let {data} = await axios({
-				url: 'api/guest/verify',
+				url: 'https://kryptbackend.herokuapp.com/api/guest/verify',
 				method: 'get',
 				headers: {
 					auth_token: token

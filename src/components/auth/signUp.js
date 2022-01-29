@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
 import GoogleSignIn from './googleSignIn/button';
-import { Link } from 'react-router-dom';
 import Nav from '../nav/nav';
 
 const SignUp = () => {
@@ -32,13 +31,21 @@ const SignUp = () => {
 
 	const submitHandler = async(e) => {
 		e.preventDefault();
+		
 		try{
+			const {firstName, lastName, phoneNumber, signUpEmail, signUpPassword } = inputOptions
+
+			if(!firstName || !lastName || !signUpEmail || !signUpPassword){
+				setLoginError(true)
+				return;
+			}
+
 			let {data} =  await axios.post('https://kryptbackend.herokuapp.com/api/guest/register', {
-				firstName: inputOptions.firstName,
-				lastName: inputOptions.lastName,
-				phoneNumber: inputOptions.phoneNumber,
-				email : inputOptions.signUpEmail,
-				password: inputOptions.signUpPassword
+				firstName,
+				lastName,
+				phoneNumber,
+				email : signUpEmail,
+				password: signUpPassword
 			})
 
 			let {token, user} = data;
@@ -58,7 +65,7 @@ const SignUp = () => {
 						<h1 className="text-xl place-self-start mb-4 text-gray-900 font-semibold">
 							Sign up
 						</h1>						
-						{loginError && <h3 className="text-sm text-red-500 font-medium place-self-start">Invalid login credentials</h3>}
+						{loginError && <h3 className="text-sm text-red-500 font-medium place-self-start">Please fill in all required fields</h3>}
 						<div className= "place-self-start w-full sm:grid sm:gap-x-2 sm:grid-cols-2">
 							<div className="my-1">
 								<label htmlFor="firstName" className="text-gray-900 font-medium">First Name</label>
@@ -70,6 +77,7 @@ const SignUp = () => {
 									placeholder="John"
 									value={inputOptions.firstName}
 									onChange={onChangeHandler}
+									required
 								/>
 							</div>
 							<div className="my-1">
@@ -82,6 +90,7 @@ const SignUp = () => {
 									placeholder="Doe"
 									value={inputOptions.lastName}
 									onChange={onChangeHandler}
+									required
 								/>
 							</div>
 						</div>
@@ -104,6 +113,7 @@ const SignUp = () => {
 							placeholder="john@xyz.com"
 							value={inputOptions.signUpEmail}
 							onChange={onChangeHandler}
+							required
 						/>
 						<label htmlFor="signUpPassword" className="text-gray-900 font-medium place-self-start">Password</label>
 						<input
@@ -114,6 +124,7 @@ const SignUp = () => {
 							placeholder="Password"
 							value={inputOptions.signUpPassword}
 							onChange={onChangeHandler}
+							required
 						/>
 						<button 
 							type="submit" 

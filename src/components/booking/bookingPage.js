@@ -237,7 +237,7 @@ const Booking = () => {
 
 		try{
 			await axios({
-				url:'/api/guest/booking/',
+				url:'https://kryptbackend.herokuapp.com/api/guest/booking/',
 				method:'post',
 				data:{
 					rooms: bookedRooms,
@@ -288,7 +288,7 @@ const Booking = () => {
 					return  setPrice(0);
 				}
 				const {data} = await axios({
-								url:'/api/guest/booking/validation',
+								url:'https://kryptbackend.herokuapp.com/api/guest/booking/validation',
 								method:'post',
 								data:{
 									rooms: bookedRooms,

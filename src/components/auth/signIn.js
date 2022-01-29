@@ -39,11 +39,17 @@ const SignIn = () => {
 	},[token])
 
 	const submitHandler = async(e) => {
+		
 		e.preventDefault();
 		try{
+			const {signInEmail, signInPassword} = inputOptions
+			if(!signInEmail || !signInPassword){
+				setLoginError(true)
+				return;
+			}
 			let {data} = await axios.post('https://kryptbackend.herokuapp.com/api/guest/login', {
-				email : inputOptions.signInEmail,
-				password: inputOptions.signInPassword
+				email : signInEmail,
+				password: signInPassword
 			})
 			let {token, user} = data;
 			setLoginError(false)
@@ -73,6 +79,7 @@ const SignIn = () => {
 							placeholder="john@xyz.com"
 							value={inputOptions.signInEmail}
 							onChange={onChangeHandler}
+							required
 						/>
 						<label htmlFor="signInPassword" className="text-blue-900 font-medium place-self-start">Password</label>
 						<input
@@ -83,6 +90,7 @@ const SignIn = () => {
 							placeholder="Password"
 							value={inputOptions.signInPassword}
 							onChange={onChangeHandler}
+							required
 						/>
 						<button 
 							type="submit" 

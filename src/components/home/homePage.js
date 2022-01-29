@@ -109,9 +109,9 @@ const Home = () => {
 							<RoomsLink size={size} animatePage={animatePage} />					
 							<GalleryLink size={size} animatePage={animatePage} />
 						{
-							auth.token ? 
-								<Link to="/user" className="flex px-1.5 sm:px-4 items-center gap-x-2 font-semibold ">
-									<p className="">{`Hey, ${auth.user.lastName}`}</p>
+							!auth.token ? 
+								<Link to="/user" className="flex px-1.5 border border-gray-900 hover:bg-gray-200 rounded-md py-1 sm:px-4 items-center gap-x-2 font-semibold ">
+									<div className="">{`Hey, ${auth.user.lastName}`}</div>
 									<i className="fa fa-user text-gray-500"></i>
 								</Link>
 							:
@@ -121,7 +121,7 @@ const Home = () => {
 								</div>
 						}
 						</div>
-						<i class="fas fa-bars sm:hidden cursor-pointer hover:shadow-lg border-black" onClick={() => {setIsOpen(prev => {return !prev})}}></i>
+						<i className="fas fa-bars sm:hidden cursor-pointer hover:shadow-lg border-black" onClick={() => {setIsOpen(prev => {return !prev})}}></i>
 					</div>
 					{
 						isOpen &&
@@ -130,9 +130,9 @@ const Home = () => {
 								<RoomsLink size={size} animatePage={animatePage} />					
 								<GalleryLink size={size} animatePage={animatePage} />
 							{
-								auth.token ? 
-									<Link to="/user" className="flex px-1.5 sm:px-4 gap-x-2 font-semibold ">
-										<p className="">{`Hey, ${auth.user.lastName}`}</p>
+								!auth.token ? 
+									<Link to="/user" className="flex px-1.5 border border-gray-900 hover:bg-gray-200 rounded-md items-center py-1 sm:px-4 gap-x-2 font-semibold ">
+										<div className="">{`Hey, ${auth.user.lastName}`}</div>
 										<i className="fa fa-user text-gray-500"></i>
 									</Link>
 								:
