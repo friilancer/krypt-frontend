@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router';
 import GoogleSignIn from './googleSignIn/button';
 import { Link } from 'react-router-dom';
+import Nav from '../nav/nav';
 
 const SignUp = () => {
 	const [inputOptions, setInputOptions] = useState({
@@ -50,14 +51,9 @@ const SignUp = () => {
 
 	return (
 		<>
-			<div className='md:animate-fadeIn flex flex-col justify-center min-h-screen sm:h-screen w-screen form-page'>
-				<nav className='fixed top-0 w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900'>
-					<div className='flex items-center justify-between'>
-						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
-						<Link to="/" className='px-1.5 sm:px-4 font-semibold'>Home</Link>
-					</div>
-				</nav>
-				<div className="max-w-md w-full grid items-center bg-white sm:border-b-2 sm:border-gray-300 sm:rounded-xl pb-5 sm:pb-10 mx-auto">
+			<Nav />
+			<div className='md:animate-fadeIn flex flex-col justify-center w-screen'>
+				<div className="max-w-md w-full grid bg-white shadow-md sm:border-b-2 sm:border-gray-300 sm:rounded-xl py-5 my-10 px-1 sm:my-10 mx-auto">
 					<form className="mx-3 grid place-items-center">
 						<h1 className="text-xl place-self-start mb-4 text-gray-900 font-semibold">
 							Sign up

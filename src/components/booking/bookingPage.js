@@ -5,6 +5,7 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Nav from '../nav/nav';
 
 dayjs.extend(dayOfYear);
 
@@ -72,7 +73,7 @@ const SuccessPopup = ({setIsOpen}) => {
 		</div>
 	)
 }
-const Booking = (displayNav) => {
+const Booking = () => {
 	const [bookings, setBookings] = useState({
 		doubleDeluxe : 0,
 		deluxe: 0,
@@ -319,12 +320,7 @@ const Booking = (displayNav) => {
 	return (
 		<>	
 			<div className='md:animate-fadeIn flex flex-col min-h-screen lg:min-h-0 sm:h-screen w-screen form-page'>
-				<nav className={`${displayNav === false ? 'hidden' : ''} w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900`}>
-					<div className='flex items-center justify-between'>
-						<span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
-						<Link to="/" className='px-1.5 sm:px-4 font-semibold'>Home</Link>
-					</div>
-				</nav>
+				<Nav />
 				<div className='my-2 md:my-0 flex flex-col md:flex-row 2xl:max-w-screen-xl 2xl:mx-auto p-2 h-full w-full justify-evenly items-center'>
 					<div className='my-5 md: my-0 flex'>
 						<p className='font-bold text-xl text-center md:text-3xl text-gray-900'>

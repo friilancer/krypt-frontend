@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear'
+import Nav from '../nav/nav'
 
 dayjs.extend(dayOfYear)
 
@@ -18,7 +19,7 @@ const User = () => {
         const getBookings = async() => {
             try{
                 const {data} = await axios({
-                    url:'/api/guest/booking/',
+                    url:'https://kryptbackend.herokuapp.com/api/guest/booking/',
                     method:'get',
                     headers: {
                         auth_token: token
@@ -41,7 +42,7 @@ const User = () => {
     const deleteBooking = async(bookingId, token) => {
         try{
             const {data} = await axios({
-                url:`/api/guest/booking/${bookingId}`,
+                url:`https://kryptbackend.herokuapp.com/api/guest/booking/${bookingId}`,
                 method:'delete',
                 headers: {
                     auth_token: token
@@ -73,12 +74,7 @@ const User = () => {
 
     return (
 		<>
-            <nav className='w-full mx-auto px-3 sm:px-5 py-2 pt-10 border-b-2 border-gray-900'>
-                <div className=' flex items-center justify-between'>
-                    <span className='px-1.5 sm:px-4 font-bold sm:text-xl'>AXD</span>
-                    <Link to="/" className='px-1.5 sm:px-4 font-semibold sm:text-lg'>Home</Link>
-                </div>
-            </nav>
+            <Nav />
 			<div className='md:animate-fadeIn flex flex-col py-10 min-h-screen sm:h-screen form-page'>
                 <div className='shadow-xl bg-white rounded-md my-2 flex flex-row max-w-md w-11/12 mx-auto items-center gap-x-4 p-3'>
                     <div className='p-6 h-full bg-gray-200 text-gray-800 font-bold text-lg rounded-full'>
