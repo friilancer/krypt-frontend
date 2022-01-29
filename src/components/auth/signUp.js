@@ -32,7 +32,7 @@ const SignUp = () => {
 	const submitHandler = async(e) => {
 		e.preventDefault();
 		try{
-			let {data} =  await axios.post('/api/guest/register', {
+			let {data} =  await axios.post('https://kryptbackend.herokuapp.com/api/guest/register', {
 				firstName: inputOptions.firstName,
 				lastName: inputOptions.lastName,
 				phoneNumber: inputOptions.phoneNumber,
