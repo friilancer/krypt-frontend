@@ -109,7 +109,7 @@ const Home = () => {
 							<RoomsLink size={size} animatePage={animatePage} />					
 							<GalleryLink size={size} animatePage={animatePage} />
 						{
-							!auth.token ? 
+							auth.token ? 
 								<Link to="/user" className="flex px-1.5 border border-gray-900 hover:bg-gray-200 rounded-md py-1 sm:px-4 items-center gap-x-2 font-semibold ">
 									<div className="">{`Hey, ${auth.user.lastName}`}</div>
 									<i className="fa fa-user text-gray-500"></i>
@@ -130,7 +130,7 @@ const Home = () => {
 								<RoomsLink size={size} animatePage={animatePage} />					
 								<GalleryLink size={size} animatePage={animatePage} />
 							{
-								!auth.token ? 
+								auth.token ? 
 									<Link to="/user" className="flex px-1.5 border border-gray-900 hover:bg-gray-200 rounded-md items-center py-1 sm:px-4 gap-x-2 font-semibold ">
 										<div className="">{`Hey, ${auth.user.lastName}`}</div>
 										<i className="fa fa-user text-gray-500"></i>
